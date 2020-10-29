@@ -116,3 +116,66 @@ After we've successfully created the install media, we now can install MacOS. We
 
 The other settings aren't so important, you can set these stuff as you would like.
 
+### Setting NVRAM variables
+
+Sadly, Dell just hidden some neccesary BIOS options from us, which we can adjust only by using NVRAM variables. To make easier this, I've included a modGRUBShell.efi file in the Tools folder. We can just simlpy boot into this GRUB shell, and make the needed adjustments from there with a few commands. 
+
+* Boot into the USB drive. OpenCore should launch now, giving you some boot options.
+* Quickly press an up or down arrow, because OC will boot the default option after a few seconds, and we are not ready to boot the installer yet.
+* If you've booted Clover on this machine before, choose ClearNvram.efi to clear the NVRAM variables.
+* Select modGRUBShell.efi
+
+Now you should be in a grub shell, which is indicated by the 
+
+    grub>
+
+prompt. We need to execute all the commands below.
+
+Disable CFG Lock:
+
+    setup_var 0xDA2 0x0
+
+Set DVMT pre-alloc to 64MB
+
+    setup_var 0x263 0x2
+
+Enable EHCI hand-off
+
+    setup_var 0x2 0x1
+    setup_var 0x144 0x1
+    setup_var 0x146 0x0
+    setup_var 0x147 0x0
+
+Reboot
+
+    reboot
+
+We're done with the NVRAM variables, now we can start the installation process. 
+
+### Installing MacOS
+
+After the reboot, select the Install macOS Catalina (external) boot option. The MacOS installer now should boot. The installation process is the following:
+
+* Select disk utility
+* In the view menu, choose show all devices
+* Higlight the drive that you want to install MacOS to
+* Click erase, change the name as you want, use APFS format, with GUID partition scheme.
+* Wait until the process finishes.
+
+You can close disk util now, and select install MacOS. The process is now the same as you wolud do it on a Mac.
+
+After the first reboot, OC will start the installer on your internal disk, you should see a black screen with an Apple logo, and a progress bar, it can take up to 30 minutes.
+
+After the setup, your computer will reboot again, and you should see the welcome setup. Finish it and now you have a working MacOS, althrough we have to do some work to make the OS bootable standalone, without the USB disk.
+
+> If you use Intel HD4400, the welcome setup may have graphic glitches, and you will not be able to see the buttons. If you click in the approximate place where the buttons should be, you can proceed with the welcome setup.
+
+## Post install
+
+We need an app called [EFI Agent](https://github.com/headkaze/EFI-Agent) to be able to mount the internal drive's EFI partition. Mount the internal drive's EFI partiton, copy the contents of the USB drive's EFI partition into there, which is automatically mounted. Unmount your EFI and your USB drive, and after that reboot. Your machine should be able to boot by itself now. 
+
+## Congratuations! Now you have a fully functional MacOS install. 
+
+If iMessage says "contact with apple support" on a login attempt, call Apple spuuort, and tell them that your 5K iMac is unable to log into iMessage, and they'll fix it for you. :D It helps if you have a credit card added to your Apple ID, so they know you're not a fake person who is using a Hackintosh.
+
+Special thanks to [zearp](https://github.com/zearp), without his guide, mine wouldn't be possible.  
