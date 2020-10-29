@@ -5,7 +5,11 @@ This repository contains a guide on how to install macOS Catalina on the Dell Op
 
 The Dell OptiPlex 3020 is a common and cheap computer, based on the 4th gen Intel CPU family, and the Intel Series 8 chipset. When I got my hands on mine, I had no idea what to do with it, but based on a suggestion of my roommate, I've decided to turn it into a Hackintosh. As it turned out, it is a fully capable Hackintosh candidate, with all functionalities working. In this guide, I gonig to explain you the installation process, as well as some considerations in the hardware configuration, to make you a perfect Mac computer, cheaply.
 
+## About the version of OpenCore, and the kext files
 
+Since I'm an active Hackintosh user on this machine, I will update the EFI periodically here as anything new is available.
+
+Currently, this EFI is based on OpenCore 0.6.2, and includes the latest kexts as of 2020.10.29.
 
 ## Before you start
 
