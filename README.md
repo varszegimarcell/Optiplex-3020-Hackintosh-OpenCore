@@ -31,7 +31,7 @@ You should consider some hardware upgrades to this machine, to archive the best 
 
 By default, my machine came with an Intel i3-4150 CPU, which is fine, but not ideal for a Hackintosh machine. This may vary between machines, so check your configuration.
 
-The problem is with the i3-4150 CPU is that it has Intel HD4400 graphics, which will work, but it will have some small issues, which I explain in this guide later. No Mac computer was shipped with this iGPU, so it is not suprising that it has issues. **Consider upgrading to a CPU, that has Intel HD4600 graphics instead**, Haswell CPUs are pretty cheap on the used market. Ideally, **I would install an i5-4590S,** since we're going to fake our machine as an iMac 15,1 and this machine was shipped with this exact CPU. If you decide to use a HD4400 equiped CPU, we will need to add some tweaks to our config.plist later. **Keep in mind, the cooling solution included in the machine is rated to 65W, so please check the TDP rating of your new CPU.**
+The problem with the i3-4150 CPU is that it has Intel HD4400 graphics, which will work, but it will have some small issues, which I explain in this guide later. No Mac computer was shipped with this iGPU, so it is not suprising that it has issues. **Consider upgrading to a CPU, that has Intel HD4600 graphics instead**, Haswell CPUs are pretty cheap on the used market. Ideally, **I would install an i5-4590S,** since we're going to fake our machine as an iMac 15,1 and this machine was shipped with this exact CPU. If you decide to use a HD4400 equiped CPU, we will need to add some tweaks to our config.plist later. **Keep in mind, the cooling solution included in the machine is rated to 65W, so please check the TDP rating of your new CPU.**
 
 #### RAM
 
