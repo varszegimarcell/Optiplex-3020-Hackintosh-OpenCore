@@ -3,7 +3,7 @@ This repository contains a guide on how to install macOS Catalina on the Dell Op
 
 ## Intro
 
-The Dell OptiPlex 3020 is a common and cheap computer, based on the 4th gen Intel Core CPU family, and the Intel Series 8 chipset. When I got my hands on mine, I had no idea what to do with it, but based on a suggestion of my roommate, I've decided to turn it into a Hackintosh. As it turned out, it is a fully capable Hackintosh candidate, with all functionalities working. In this guide, I gonig to explain you the installation process, as well as some considerations in the hardware configuration, to make you a perfect Mac computer, cheaply.
+The Dell Optiplex 3020 is a common and cheap business computer, based on the 4th gen Intel Core CPU family, and the Intel Series 8 chipset. When I got my hands on mine, I had no idea what to do with it, but based on a suggestion of my roommate, I've decided to turn it into a Hackintosh. As it turned out, it is a fully capable Hackintosh candidate, with all functionalities working. In this guide, I gonig to explain you the installation process, as well as some considerations in the hardware configuration, to make you a perfect Mac computer, cheaply.
 
 ## About the version of OpenCore, and the kext files
 
@@ -11,31 +11,35 @@ Since I'm an active Hackintosh user on this machine, I will update the EFI perio
 
 Currently, this EFI is based on OpenCore 0.6.2, and includes the latest kexts as of 2020.10.29.
 
+## About Big Sur
+
+With this EFI, **DO NOT TRY TO INSTALL BIG SUR** at the moment. With the latest beta, (11 beta 10) the minimimum required OpenCore version is 0.6.3, which is not released at the moment. I don't want to include debug versions of OC in this repo. With OpenCore 0.6.2, Big Sur will cause the machine to bootloop. It may work with older betas, but I hadn't tested it.
+
 ## Before you start
 
 ### Requirements
 
 You must have the following stuff to make this project successful:
-* a Dell OptiPlex 3020 computer, ( Obviously :D ) I have the SFF form factor, this is the machine I've tested the EFI on. This guide and EFI should also work on the 3020 M, and 3020 MT too, without any modifications. [To indentify your 3020, check this link.](https://www.dell.com/support/article/hu-hu/sln288646/optiplex-3020-visual-guide-to-your-computer?lang=en)
+* a Dell Optiplex 3020 computer, ( Obviously :D ) I have the SFF form factor, this is the machine I've tested the EFI on. This guide and EFI should also work on the 3020 M, and 3020 MT too, without any modifications. [To indentify your 3020, check this link.](https://www.dell.com/support/article/hu-hu/sln288646/optiplex-3020-visual-guide-to-your-computer?lang=en)
 * Access to a working Mac/Linux/Windows machine.  
 * A 16 GB pendrive. Keep in mind, during the preperation we will format the disk to create the install media, so back up your valuable files.
-* Peripherals to interact with your computer.
+* Peripherals to interact with your Hackintosh computer.
 * Displayport cable, since the VGA port will not work.
 * 1-2 hours of free time, and patience.
 
 ### Optional hardware upgrades
 
-You should consider some hardware upgrades to this machine, to archive the best results possible. In this section, we'll going through all the possible upgrades you might want to consider for the machine.
+You should consider some hardware upgrades to this machine, to archive the best results possible. In this section, we'll going through all the possible upgrades you might want to consider for the machine. If you're not interested in hardware upgrades, you can skip this section, but I strongly recommend to use a CPU with Intel HD4600 at least.
 
 #### CPU
 
 By default, my machine came with an Intel i3-4150 CPU, which is fine, but not ideal for a Hackintosh machine. This may vary between machines, so check your configuration.
 
-The problem with the i3-4150 CPU is that it has Intel HD4400 graphics, which will work, but it will have some small issues, which I explain in this guide later. No Mac computer was shipped with this iGPU, so it is not suprising that it has issues. **Consider upgrading to a CPU, that has Intel HD4600 graphics instead**, Haswell CPUs are pretty cheap on the used market. Ideally, **I would install an i5-4590S,** since we're going to fake our machine as an iMac 15,1 and this machine was shipped with this exact CPU. If you decide to use a HD4400 equiped CPU, we will need to add some tweaks to our config.plist later. **Keep in mind, the cooling solution included in the machine is rated to 65W, so please check the TDP rating of your new CPU.**
+The problem with the i3-4150 CPU is that it has Intel HD4400 graphics, which will work, but it will have some small issues, which I explain in this guide later. No Mac computer was shipped with this iGPU, so it is not suprising that it has issues. **Consider upgrading to a CPU, that has Intel HD4600 graphics instead**, LGA1150 Haswell CPUs are pretty cheap on the used market. Ideally, **I would install an i5-4590S,** since we're going to fake our machine as an iMac 15,1 and this machine was shipped with this exact CPU. If you decide to use a HD4400 equiped CPU, we will need to add some tweaks to our config.plist later. **Keep in mind, the cooling solution included in the machine is rated to 65W, so please check the TDP rating of your new CPU.**
 
 #### RAM
 
-By default, my machine came with 4 GB of memory, which is fine, but far from perfect. Althrough Mac will run and work, you will experience some applications closing in the background, and some browser tabs will reload when you switching between them. **I recommend using at least 8 GB RAM,** and using 16 GB will hurt nobody. :) 
+By default, my machine came with 4 GB of memory, which is fine, but far from perfect. Althrough Mac will run and work, you will experience some applications closing in the background, and some browser tabs will reload when you switching between them. **I recommend using at least 8 GB RAM for optimal multi-tasking experience,** and using 16 GB will hurt nobody. :) DDR3 1600MHz RAM sticks are pretty cheap too these days. 
 The SFF computer I use has 2 RAM slots, it was populated by one 4 GB Hynix HMT451U6AFR8C-PB 1600MHz stick. 
 
 #### SSD
@@ -44,29 +48,30 @@ The SFF computer I use has 2 RAM slots, it was populated by one 4 GB Hynix HMT45
 
 #### Networking card
 
-The onboard Gigabit Ethernet is working perfectly, so no need to install an ethernet card, unless you want to use some fancy 10Gb card. **I would recommend to install a Wifi+Bluetooth card with the Broadcomm BCM94360CD chipset.** Althrough it is not required for a functioning system, it is needed to have Continuity, AirDrop, Handoff etc. The best part is, that no workarounds needed if you use this chipset. **They're pretty inexpensive on EBay, but *always read the description,* because some chinese dudes will want to rip you off, and send you a card with a compatible, but not the exactly same chipset.** Compatible chipsets will not work out-of-the box. **If the description contains text like *"maximum chipset"*, do not buy from that seller.** I recommend this chipset, because it was included in the iMac15,1. Some other chipsets may work too, for more information, please read [OpenCore's Wifi Buyers guide.](https://dortania.github.io/Wireless-Buyers-Guide/)
+The onboard Gigabit Ethernet is working perfectly, so no need to install an ethernet card, unless you want to use some fancy 10Gb cards. **I would recommend to install a Wifi+Bluetooth card, with the Broadcomm BCM94360CD chipset.** Althrough it is not required for a functioning system, it is needed to have Continuity, AirDrop, Handoff etc. The best part is, that no workarounds needed if you use this chipset, it's plug'n'play. **They're pretty inexpensive on EBay, but *always read the description,* because some chinese dudes will want to rip you off, and send you a card with a compatible, but not the exactly same, and slower chipset.** Compatible chipsets will not work out-of-the box, so they will need some "kext magic" to be able to make them work. I see no reason to get a random card for slightly cheaper price, and it will casue more headaches for sure. **If the description contains text like *"maximum chipset"*, do not buy from that seller.** I recommend this exact chipset, because it was included in the iMac15,1, and has WIFI+BT on the same PCIe card. Some other chipsets may work too, for more information, please read [OpenCore's Wifi Buyers guide.](https://dortania.github.io/Wireless-Buyers-Guide/)
 
 #### Dedicated GPU
-You can freely use any decicated GPU supported by MacOS. Keep in mind, this machine's PSU don't have any PCIe power headers, so use a GPU that will work with the power coming from the PCIe socket itself. (Under 75 watts GPUs.) I'm using the iGPU, since don't need any graphics intensive applications. It will work just fine for everything, other than video rendering/CAD/3D modeling/gaming. 
+You can freely use any decicated GPU that supports by MacOS. Keep in mind, this machine's PSU don't have any PCIe power headers, so use a GPU that will work with the power coming from the PCIe socket itself. (Under 75 watts GPUs.) I'm using the iGPU, since don't need any graphics intensive applications. It will work just fine for everything, other than video rendering/CAD/3D modeling/gaming. 
 
 ## Preperation 
 
 ### Creating the install media
 
-You have to make an installation media to install MacOS, and make it bootable too. If you're using MacOS, you can head to the App Store to download it directly from Apple. Since I had no access to a Mac, I used a script called [giMacOS](https://github.com/corpnewt/gibMacOS), which can also run under Windows. The process on Windows is the following:
+You have to make an installation media to install MacOS, and in the second step, you have to make it bootable too. If you're using MacOS, you can head to the App Store to download the installer directly from Apple. Since I had no access to a Mac, I used a script called [giMacOS](https://github.com/corpnewt/gibMacOS), which can also run under Windows. The process on Windows is the following):
 * Download gibMacOS from GitHub as a ZIP.
 * Extract the gibMacOS-master folder.
 * Run gibMacOS.bat, and choose otpion 1 to download the latest Catalina installer.
 * After the download succeeded, launch makeInstall.bat, enter the path of the previously downloaded files, (it will be in the script's folder) and choose you USB drive as an output drive. Wait until the process ends, it will take a while.
-After the install media was created, we will need to make it bootable later. At the moment, only Macs can boot it. 
+After the install media was created, we need to make the USB drive bootable by PCs. At the moment, only real Macs can boot it. 
+> Note: you can use gibMacOS on Mac too, all you need to do is to launch the same files as you would do on Windows, but launch the ones with the .command file extension. For making the installer on Linux, pleas refer to [the OpenCore Install Guide.](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/linux-install.html)
 
 ### Configuring the EFI
 
-First of all, download the EFI folder I included in this repo, so we can make some adjustments on it. In this step, we will tweak our bootloader, than write it out on the install media's EFI folder, so PCs will be able to boot from it. 
+First of all, download the EFI folder I've included in this repo, so we can make some adjustments on it. In this step, we will tweak our bootloader, generate our fake Mac serials, than write it out on the install media's EFI folder, so PCs will be able to boot from it. 
 
 #### GenSMBIOS values
 
-We need a script, called [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), to be able to fake create fake serial number, UUID, and MLB numbers. **This step is essential to have a working iMessage, so do not skip it.** This script can run on Windows too. The process on windows is the following:
+We need a script, called [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), to be able to fake create fake serial number, UUID, and MLB numbers. **This step is essential to have a working iMessage, so do not skip it. It is highly recommended to do this now, rather than post-install.** This script can run on Windows too. The process on windows is the following:
 * Download GenSMBIOS as a ZIP, then extract it.
 * Launch GenSMBIOS.bat, and use option 1 to download MacSerial.
 * Choose option 2, to select the path of the config.plist file. It will be located in EFI/OC folder. ( The stuff you've downloaded from this repo. :) )
@@ -75,7 +80,7 @@ We need a script, called [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), to 
 
 #### Enter the proper ROM value
 
-After adding serials to your config.plist, you have to add the computer's MAC address to the config.plist file. **This step is essential to have a working iMessage, so do not skip it.** If you have a functioning operating sysytem on it, it is a pretty easy task to accomplish. Since I had no OS on my OptiPlex, I booted into BIOS, and used an smartphone app called [Fing](https://www.fing.com/products/fing-app) to scan the MAC address of the machine. You just have to be in the same network with the machine. Write down the address somewhere, since we'll need it in the next step.
+After adding serials to your config.plist, you have to add the computer's MAC address to the config.plist file. **This step is also essential to have a working iMessage, so do not skip it. It is highly recommended to do this now, rather than post-install.** If you have a functioning operating sysytem on the Optiplex, it is a pretty easy task to accomplish. Since I had no OS on my Optiplex, I booted into BIOS, and used an smartphone app called [Fing](https://www.fing.com/products/fing-app) to scan the MAC address of the machine. You just have to be in the same network with the machine. Write down the address somewhere, since we'll need it in the next step.
 
 We need a Plist editior, to write the MAC address into the config.plist file. I used [ProperTree](https://github.com/corpnewt/ProperTree), since it works on Windows too. Xcode editior works well too. You have to change the MAC address value in the config.plist at 
 
