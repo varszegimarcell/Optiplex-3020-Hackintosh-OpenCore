@@ -40,7 +40,7 @@ The problem with the i3-4150 CPU is that it has Intel HD4400 graphics, which wil
 #### RAM
 
 By default, my machine came with 4 GB of memory, which is fine, but far from perfect. Althrough Mac will run and work, you will experience some applications closing in the background, and some browser tabs will reload when you switching between them. **I recommend using at least 8 GB RAM for optimal multi-tasking experience,** and using 16 GB will hurt nobody. :) DDR3 1600MHz RAM sticks are pretty cheap too these days. 
-The SFF computer I use has 2 RAM slots, it was populated by one 4 GB Hynix HMT451U6AFR8C-PB 1600MHz stick. 
+The SFF computer I use has 2 RAM slots, one was populated with a 4 GB Hynix HMT451U6AFR8C-PB 1600MHz stick. 
 
 #### SSD
 
@@ -51,7 +51,7 @@ The SFF computer I use has 2 RAM slots, it was populated by one 4 GB Hynix HMT45
 The onboard Gigabit Ethernet is working perfectly, so no need to install an ethernet card, unless you want to use some fancy 10Gb cards. **I would recommend to install a Wifi+Bluetooth card, with the Broadcomm BCM94360CD chipset.** Althrough it is not required for a functioning system, it is needed to have Continuity, AirDrop, Handoff etc. The best part is, that no workarounds needed if you use this chipset, it's plug'n'play. **They're pretty inexpensive on EBay, but *always read the description,* because some chinese dudes will want to rip you off, and send you a card with a compatible, but not the exactly same, and slower chipset.** Compatible chipsets will not work out-of-the box, so they will need some "kext magic" to be able to make them work. I see no reason to get a random card for slightly cheaper price, and it will casue more headaches for sure. **If the description contains text like *"maximum chipset"*, do not buy from that seller.** I recommend this exact chipset, because it was included in the iMac15,1, and has WIFI+BT on the same PCIe card. Some other chipsets may work too, for more information, please read [OpenCore's Wifi Buyers guide.](https://dortania.github.io/Wireless-Buyers-Guide/)
 
 #### Dedicated GPU
-You can freely use any decicated GPU that supports by MacOS. Keep in mind, this machine's PSU don't have any PCIe power headers, so use a GPU that will work with the power coming from the PCIe socket itself. (Under 75 watts GPUs.) I'm using the iGPU, since don't need any graphics intensive applications. It will work just fine for everything, other than video rendering/CAD/3D modeling/gaming. 
+You can freely use any decicated GPU that supports by MacOS. Keep in mind, this machine's PSU don't have any PCIe power headers, so use a GPU that will work with the power coming from the PCIe socket itself. (Under 75 watts GPUs.) I'm using the iGPU, since don't need any graphics intensive applications. It will work just fine for everything, other than video rendering/CAD/3D modeling/gaming.
 
 ## Preperation 
 
@@ -67,15 +67,15 @@ After the install media was created, we need to make the USB drive bootable by P
 
 ### Configuring the EFI
 
-First of all, download the EFI folder I've included in this repo, so we can make some adjustments on it. In this step, we will tweak our bootloader, generate our fake Mac serials, than write it out on the install media's EFI folder, so PCs will be able to boot from it. 
+First of all, download the EFI folder I've included in this repo, so we can make some adjustments on it. In this step, we will tweak our bootloader, generate our fake Mac serials, than write it out on the install media's EFI folder, so PCs will be able to boot from it. Althrough generating serials are possible post-install, I would not recommend it, doing these tasks now can save a lot of pain and troubleshooting later, especially when you trying to make iMessage work. 
 
 #### GenSMBIOS values
 
-We need a script, called [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), to be able to fake create fake serial number, UUID, and MLB numbers. **This step is essential to have a working iMessage, so do not skip it. It is highly recommended to do this now, rather than post-install.** This script can run on Windows too. The process on windows is the following:
+We need a script, called [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), to be able to fake create fake serial number, UUID, and MLB numbers. **This step is essential to have a working iMessage, so do not skip it. It is highly recommended to do this now, rather than post-install.** This script can run on Windows too. The process is the following:
 * Download GenSMBIOS as a ZIP, then extract it.
-* Launch GenSMBIOS.bat, and use option 1 to download MacSerial.
+* Launch GenSMBIOS.bat, (or GenSMBIOS.command on Mac) and use option 1 to download MacSerial.
 * Choose option 2, to select the path of the config.plist file. It will be located in EFI/OC folder. ( The stuff you've downloaded from this repo. :) )
-* Choose option 3, and enter iMac15,1 as the machine type. 
+* Choose option 3, and enter iMac15,1 as the machine type. This is the closest Mac configuration to our Hackintosh machine. 
 * Press Q to quit, your config.plist now should contain the required serials.
 
 #### Enter the proper ROM value
@@ -88,7 +88,9 @@ We need a Plist editior, to write the MAC address into the config.plist file. I 
 
 Delete the generic 112233445566 value, and enter your MAC address into the field, without any colons. Save the Plist file, and it is now ready to be written out to the EFI partition of your install media. 
 
-#### Intel HD4400 (You must do this if you have this iGPU only!!!)
+#### Intel HD4400 (You must do this if you have this iGPU!!!)
+
+> If you have Intel HD4600, skip this section.
 
 In case you've decided to stick with an Intel HD4400, you have to add some more tweaks into the config.plist file. The reason behind this is to force MacOS to use this GPU by injecting fake PCIe ID to it, which makes Mac believe that it is a HD4600. We need to add a new dictionary under the
 
@@ -107,15 +109,16 @@ We need to add five elements to that dictionary, all items must be data type. Th
     device-id	-> 12040000
 
 After adding these values, save your config.plist, and it is now ready to be written out to the EFI partition of your install media.
-> Note: I highly recommend not to use an Intel HD4400 equiped CPU, as you'll experience random graphics glitches and freezes in certain apps. Post install setup app is one of them, as you will have random black boxes, Preview will freeze with large image files, as well as GarageBand in the audio settings. (At least, until now, these are the apps that are surely affected by this issue.) For a flawless MacOS experience, I strongly recommend to use Intel HD4600 equipped CPU, or one of the supported dGPUs.
+
+> Note: I highly recommend not to use an Intel HD4400 equiped CPU, as you'll experience random graphics glitches and freezes in certain apps. Post install setup app is one of them, as you will have random black boxes on the screen. Preview will freeze with large image files, as well as GarageBand freezes in the audio settings menu. (At least, until now, these are the apps that I experienced issues with.) For a flawless MacOS experience, I strongly recommend to use Intel HD4600 equipped CPU, or one of the supported dGPUs.
 
 ### Writing out the EFI to the install media
 
-After you've finished with the neccesary tweaks, you have to copy the EFI folder to the USB drive's EFI partition. This allows us to boot the MacOS installer on a PC. On Mac and Linux, this partition should be automatically mounted, if not, use the mount command in the terminal to mount it manually. On Windows, follow [this](https://www.insanelymac.com/forum/topic/311820-guide-mount-and-access-efi-partition-on-windows-10/) guide to mount the EFI partition of the USB stick. Copy the entire EFI folder to the drive and, after that we are ready to start working on the installation process.
+After you've finished with the neccesary tweaks, you have to copy the EFI folder to the USB drive's EFI partition. This allows us to boot the MacOS installer on a PC. On Mac and Linux, this partition should be automatically mounted, if not, use the mount command in the terminal to mount it manually. On Windows, follow [this guide](https://www.insanelymac.com/forum/topic/311820-guide-mount-and-access-efi-partition-on-windows-10/) to mount the EFI partition of the USB stick. Copy the entire EFI folder to the drive and, after that we are ready to start working on the installation process.
 
 ## Installation
 
-After we've successfully created the install media, we now can install MacOS. We need a few tweaks before that can successfully happen. First, we head to the BIOS settings.
+After we've successfully created the install media, we now can install MacOS. We need a few tweaks before that can successfully happen. First, we head to the BIOS settings, then we have to set some NVRAM values.
 
 ### BIOS settings
 
@@ -163,21 +166,21 @@ We're done with the NVRAM variables, now we can start the installation process.
 
 ### Installing MacOS
 
-After the reboot, select the Install macOS Catalina (external) boot option. The MacOS installer now should boot. The installation process is the following:
+After the reboot, select the macOS Base System (external) boot option. The MacOS installer now should boot. The installation process is the following:
 
-* Select disk utility
-* In the view menu, choose show all devices
-* Higlight the drive that you want to install MacOS to
-* Click erase, change the name as you want, use APFS format, with GUID partition scheme.
+* Select disk utility.
+* In the view menu, choose show all devices.
+* Higlight the drive that you want to install MacOS to.
+* Click erase, change the name as you want, (Mac SSD etc.) use APFS format, with GUID partition scheme.
 * Wait until the process finishes.
 
 You can close disk util now, and select install MacOS. The process is now the same as you wolud do it on a Mac.
 
 After the first reboot, OC will start the installer on your internal disk, you should see a black screen with an Apple logo, and a progress bar, it can take up to 30 minutes.
 
-After the setup, your computer will reboot again, and you should see the welcome setup. Finish it and now you have a working MacOS, althrough we have to do some work to make the OS bootable standalone, without the USB disk.
+After the setup, your computer will reboot again, and you should see the welcome setup. Finish it and now you have a working MacOS, althrough we have to do some work, to make the OS bootable without the USB disk.
 
-> If you use Intel HD4400, the welcome setup may have graphic glitches, and you will not be able to see the buttons. If you click in the approximate place where the buttons should be, you can proceed with the welcome setup.
+> If you use Intel HD4400, the welcome setup may have graphic glitches, and you will not be able to see the Next buttons. If you click in the approximate place where the buttons should be, you can proceed with the welcome setup.
 
 ## Post install
 
@@ -185,6 +188,6 @@ We need an app called [EFI Agent](https://github.com/headkaze/EFI-Agent) to be a
 
 ## Congratuations! Now you have a fully functional MacOS install. 
 
-If iMessage says "contact with apple support" on a login attempt, call Apple spuuort, and tell them that your 5K iMac is unable to log into iMessage, and they'll fix it for you. :D It helps if you have a credit card added to your Apple ID, so they know you're not a fake person who is using a Hackintosh.
+If iMessage says "contact with apple support" on a login attempt, call Apple spuuort, and tell them that your 5K iMac is unable to log into iMessage, and they'll fix it for you. :D It helps if you have a credit card added to your Apple ID, so they know you're not a fake person who is using a Hackintosh. For further iMessage troubleshooting, please visit [Tonymacx86's guide here](https://www.tonymacx86.com/threads/how-to-fix-imessage.110471/)
 
-Special thanks to [zearp](https://github.com/zearp), without his guide, mine wouldn't be possible.  
+Special thanks to [zearp](https://github.com/zearp), without his guide, mine wouldn't be possible, especially at setting the NVRAM variables.  
