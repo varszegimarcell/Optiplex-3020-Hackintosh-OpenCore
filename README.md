@@ -67,7 +67,9 @@ After the install media was created, we need to make the USB drive bootable by P
 
 ### Configuring the EFI
 
-First of all, download the EFI folder I've included in this repo, so we can make some adjustments on it. In this step, we will tweak our bootloader, generate our fake Mac serials, than write it out on the install media's EFI folder, so PCs will be able to boot from it. Althrough generating serials are possible post-install, I would not recommend it, doing these tasks now can save a lot of pain and troubleshooting later, especially when you trying to make iMessage work. 
+First of all, download the EFI folder I've included in this repo, so we can make some adjustments on it. You will find the latest files under the releases, or just simply download the repo as it is.
+
+In this step, we will tweak our bootloader, generate our fake Mac serials, than write it out on the install media's EFI folder, so PCs will be able to boot from it. Althrough generating serials are possible post-install, I would not recommend it, doing these tasks now can save a lot of pain and troubleshooting later, especially when you trying to make iMessage work. 
 
 #### GenSMBIOS values
 
