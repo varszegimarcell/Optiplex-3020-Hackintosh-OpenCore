@@ -9,11 +9,11 @@ The Dell Optiplex 3020 is a common and cheap business computer, based on the 4th
 
 Since I'm an active Hackintosh user on this machine, I will update the EFI periodically here as anything new is available.
 
-Currently, this EFI is based on OpenCore 0.6.2, and includes the latest kexts as of 2020.10.29.
+Currently, this EFI is based on OpenCore 0.6.3, and includes the latest kexts as of 2020.11.03.
 
 ## About Big Sur
 
-With this EFI, **DO NOT TRY TO INSTALL BIG SUR** at the moment. With the latest beta, (11 beta 10) the minimimum required OpenCore version is 0.6.3, which is not released at the moment. I don't want to include debug versions of OC in this repo. With OpenCore 0.6.2, Big Sur will cause the machine to bootloop. It may work with older betas, but I hadn't tested it.
+With this EFI, **DO NOT TRY TO INSTALL BIG SUR** at the moment. Theoretically, it should work, but it is untested by me at the moment. 
 
 ## Before you start
 
@@ -134,7 +134,7 @@ Sadly, Dell just hidden some neccesary BIOS options from us, which we can adjust
 
 * Boot into the USB drive. OpenCore should launch now, giving you some boot options.
 * Quickly press an up or down arrow, because OC will boot the default option after a few seconds, and we are not ready to boot the installer yet.
-* If you've booted Clover on this machine before, choose ClearNvram.efi to clear the NVRAM variables.
+* If you've booted Clover on this machine before, choose Reset NVRAM to clear the NVRAM variables. It is the last boot option in OpenCore.
 * Select modGRUBShell.efi
 
 Now you should be in a grub shell, which is indicated by the 
