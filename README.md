@@ -58,13 +58,13 @@ You can freely use any decicated GPU that supports by MacOS. Keep in mind, this 
 
 ### Creating the install media
 
-You have to make an installation media to install MacOS, and in the second step, you have to make it bootable too. If you're using MacOS, you can head to the App Store to download the installer directly from Apple. Since I had no access to a Mac, I used a script called [gibMacOS](https://github.com/corpnewt/gibMacOS), which can also run under Windows. The process on Windows is the following):
+You have to make an installation media to install MacOS, and in the second step, you have to make it bootable too. If you're using MacOS, you can head to the App Store to download the installer directly from Apple. Since I had no access to a Mac, I used a script called [gibMacOS](https://github.com/corpnewt/gibMacOS), which can also run under Windows. The process on Windows is the following:
 * Download gibMacOS from GitHub as a ZIP.
 * Extract the gibMacOS-master folder.
 * Run gibMacOS.bat, and choose otpion 1 to download the latest Catalina installer.
 * After the download succeeded, launch makeInstall.bat, enter the path of the previously downloaded files, (it will be in the script's folder) and choose you USB drive as an output drive. Wait until the process ends, it will take a while.
 After the install media was created, we need to make the USB drive bootable by PCs. At the moment, only real Macs can boot it. 
-> Note: you can use gibMacOS on Mac too, all you need to do is to launch the same files as you would do on Windows, but launch the ones with the .command file extension. For making the installer on Linux, pleas refer to [the OpenCore Install Guide.](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/linux-install.html)
+> Note: you can use gibMacOS on Mac too, all you need to do is to launch the same files as you would do on Windows, but launch the ones with the .command file extension. For making the installer on Linux, please refer to [the OpenCore Install Guide.](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/linux-install.html)
 
 ### Configuring the EFI
 
