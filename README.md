@@ -13,7 +13,8 @@ Currently, this EFI is based on OpenCore 0.6.3, and includes the latest kexts as
 
 ## About Big Sur
 
-With this EFI, **DO NOT TRY TO INSTALL BIG SUR** at the moment. Theoretically, it should work, but it is untested by me at the moment. 
+With this EFI, you can try to install Big Sur too. After succesfully installing Catalina, you can enroll to Apple's Mac beta program, and update the OS via System preferences. The PC will reboot multiple times during the install process. (4-5 times if I remember correctly.) **DO NOT USE INTEL HD4400 for Big Sur, as it is extremely glitchy.** In some cases, the OS behaves like you wouldn't have hardware acceleration, and the UI is laggy as hell. Even the Dock magnification animation freezes. 
+> Note: I've only tested it with MacOS Big Sur Beta 11.0.1.
 
 ## Before you start
 
