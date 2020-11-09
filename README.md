@@ -1,8 +1,6 @@
 # Dell Optiplex 3020 Hackintosh Catalina 10.15
 This repository contains a guide on how to install macOS Catalina on the Dell Optiplex 3020, with the neccesary files.
 
-# DO NOT USE THIS GUIDE FOR NOW, I HAVE HEAVY ISSUES WITH IT!!! I work hard to fix these issues, and update the guide.
-
 ## Intro
 
 The Dell Optiplex 3020 is a common and cheap business computer, based on the 4th gen Intel Core CPU family, and the Intel Series 8 chipset. When I got my hands on mine, I had no idea what to do with it, but based on a suggestion of my roommate, I've decided to turn it into a Hackintosh. As it turned out, it is a fully capable Hackintosh candidate, with all functionalities working. In this guide, I gonig to explain you the installation process, as well as some considerations in the hardware configuration, to make you a perfect Mac computer, cheaply.
@@ -11,7 +9,7 @@ The Dell Optiplex 3020 is a common and cheap business computer, based on the 4th
 
 Since I'm an active Hackintosh user on this machine, I will update the EFI periodically here as anything new is available.
 
-Currently, this EFI is based on OpenCore 0.6.3, and includes the latest kexts as of 2020.11.03.
+Currently, this EFI is based on OpenCore 0.6.3, and includes the latest kexts as of 2020.11.09.
 
 ## About Big Sur
 
@@ -38,7 +36,7 @@ You should consider some hardware upgrades to this machine, to archive the best 
 
 By default, my machine came with an Intel i3-4150 CPU, which is fine, but not ideal for a Hackintosh machine. This may vary between machines, so check your configuration.
 
-The problem with the i3-4150 CPU is that it has Intel HD4400 graphics, which will work, but it will have some small issues, which I explain in this guide later. No Mac computer was shipped with this iGPU, so it is not suprising that it has issues. **Consider upgrading to a CPU, that has Intel HD4600 graphics instead**, LGA1150 Haswell CPUs are pretty cheap on the used market. Ideally, **I would install an i5-4590S,** since we're going to fake our machine as an iMac 15,1 and this machine was shipped with this exact CPU. If you decide to use a HD4400 equiped CPU, we will need to add some tweaks to our config.plist later. **Keep in mind, the cooling solution included in the machine is rated to 65W, so please check the TDP rating of your new CPU.**
+The problem with the i3-4150 CPU is that it has Intel HD4400 graphics, which will work, but it will have some small issues, which I explain in this guide later. No Mac computer was shipped with this iGPU, so it is not suprising that it has issues. **Consider upgrading to a CPU, that has Intel HD4600 graphics instead**, LGA1150 Haswell CPUs are pretty cheap on the used market. Ideally, **I would install an i5-4590S,** since we're going to fake our machine as an iMac 15,1 and this machine was shipped with this exact CPU. **Keep in mind, the cooling solution included in the machine is rated to 65W, so please check the TDP rating of your new CPU. Also, keep in mind the capabilities of the power supply.**
 
 #### RAM
 
@@ -56,7 +54,13 @@ The onboard Gigabit Ethernet is working perfectly, so no need to install an ethe
 #### Dedicated GPU
 You can freely use any decicated GPU that supports by MacOS. Keep in mind, this machine's PSU don't have any PCIe power headers, so use a GPU that will work with power coming from just the PCIe socket. (Under 75 watts GPUs.) Upgrading PSU may be an option, but getting one for the SSF and M form factors are pretty difficult. I'm using the iGPU, since don't need any graphics intensive applications. It will work just fine for everything, other than video rendering/CAD/3D modeling/gaming.
 
-## Preperation 
+## Preperation
+
+### Update your BIOS
+
+First of all, install the latest BIOS on your 3020 machine. For more instructions, please check [Dell's website.](https://www.dell.com/support/home/hu-hu/drivers/driversdetails?driverid=ptjjd&oscode=w764&productcode=optiplex-3020-desktop)
+
+I made a bootable FreeDOS USB, and copied over the exe file that Dell provided with the update. Run this executable, and follow the instructions. Keep in mind, you need to enable legacy boot for FreeDOS, which we'll need to turn off later.
 
 ### Creating the install media
 
@@ -93,29 +97,32 @@ We need a Plist editior, to write the MAC address into the config.plist file. I 
 
 Delete the generic 112233445566 value, and enter your MAC address into the field, without any colons. Save the Plist file, and it is now ready to be written out to the EFI partition of your install media. 
 
-#### Intel HD4400 (You must do this if you have this iGPU!!!)
+#### About the Intel HD4400 iGPU
 
-> If you have Intel HD4600, skip this section.
+I highly recommend not to use an Intel HD4400 equiped CPU, as you'll experience random graphics glitches and freezes in certain apps. Mac setup app (on first boot) is one of them, as you will have random black boxes on the screen. Preview will freeze with large image files, as well as GarageBand freezes in the audio settings menu. (At least, until now, these are the apps that I experienced issues with.) For a flawless MacOS experience, I strongly recommend to use Intel HD4600 equipped CPU, or one of the supported dGPUs.
 
-In case you've decided to stick with an Intel HD4400, you have to add some more tweaks into the config.plist file. The reason behind this is to force MacOS to use this GPU by injecting fake PCIe ID to it, which makes Mac believe that it is a HD4600. We need to add a new dictionary under the
+#### If you will add a dGPU
 
-    DeviceProperties -> Add
-    
-field, named
+In this guide, I'm not covering how to add a dedicated GPU, as it would be different for different GPUs. You have to do your own research here. However, you must change some iGPU configuration for sure. First, head to the
 
-    PciRoot(0x0)/Pci(0x2,0x0)
-    
-We need to add five elements to that dictionary, all items must be data type. The field names and values are the following, seperated by an arrow. (->)
+    DeviceProperties -> PciRoot(0x0)/Pci(0x2,0x0)
 
-    AAPL,ig-platform-id -> 0300220D
-    framebuffer-patch-enable -> 01000000
-    framebuffer-stolenmem	-> 00003001
-    framebuffer-fbmem	-> 00009000
-    device-id	-> 12040000
+dictionary, in the config.plist file. Then, remove these entries:
 
-After adding these values, save your config.plist, and it is now ready to be written out to the EFI partition of your install media.
+    disable-external-gpu
+    disable-hdmi-patches
+    enable-hdmi20
+    framebuffer-patch-enabled
+    framebuffer-fbmem
+    framebuffer-stolenmem
+    framebuffer-unifiedmem
+    hda-gfx
 
-> Note: I highly recommend not to use an Intel HD4400 equiped CPU, as you'll experience random graphics glitches and freezes in certain apps. Post install setup app is one of them, as you will have random black boxes on the screen. Preview will freeze with large image files, as well as GarageBand freezes in the audio settings menu. (At least, until now, these are the apps that I experienced issues with.) For a flawless MacOS experience, I strongly recommend to use Intel HD4600 equipped CPU, or one of the supported dGPUs.
+After that, modify the following value like that:
+
+    AAPL,ig-platform-id -> 04001204
+
+This will put you iGPU into compute-only mode, and it will be used for encoding tasks only by macOS. In this state, the iGPU is not capable to drive a display.
 
 ### Writing out the EFI to the install media
 
@@ -150,7 +157,7 @@ prompt. We need to execute all the commands below.
 
 Disable CFG Lock:
 
-    setup_var 0xDA2 0x0
+    setup_var 0xD9E 0x0
 
 Set DVMT pre-alloc to 64MB
 
