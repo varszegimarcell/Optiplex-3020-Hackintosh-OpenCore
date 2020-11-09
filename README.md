@@ -1,4 +1,4 @@
-# Dell Optiplex 3020 Hackintosh Catalina 10.15
+# Dell Optiplex 3020 Hackintosh Catalina 10.15 + OpenCore 0.6.3
 This repository contains a guide on how to install macOS Catalina on the Dell Optiplex 3020, with the neccesary files.
 
 ## Intro
