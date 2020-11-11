@@ -1,6 +1,10 @@
 # Dell Optiplex 3020 Hackintosh Catalina 10.15 + OpenCore 0.6.3
 This repository contains a guide on how to install macOS Catalina on the Dell Optiplex 3020, with the neccesary files.
 
+## Disclaimer
+
+As I am a human being, like you, I make mistakes. Use the information provided here as is. I'm not responsible for any negative consequences, if you follow this guide, and something goes wrong. If you find any issues, feel free to open a ticket, or send me a message.
+
 ## Intro
 
 The Dell Optiplex 3020 is a common and cheap business computer, based on the 4th gen Intel Core CPU family, and the Intel Series 8 chipset. When I got my hands on mine, I had no idea what to do with it, but based on a suggestion of my roommate, I've decided to turn it into a Hackintosh. As it turned out, it is a fully capable Hackintosh candidate, with all functionalities working. In this guide, I gonig to explain you the installation process, as well as some considerations in the hardware configuration, to make you a perfect Mac computer, cheaply.
@@ -13,7 +17,7 @@ Currently, this EFI is based on OpenCore 0.6.3, and includes the latest kexts as
 
 ## About Big Sur
 
-With this EFI, you can try to install Big Sur too. After succesfully installing Catalina, you can enroll to Apple's Mac beta program, and update the OS via System preferences. The PC will reboot multiple times during the install process. (4-5 times if I remember correctly.) You can also make a clean install too. I started testing this EFI with Big Sur today (2020.11.11.), we'll se how it handles daily usage.
+With this EFI, you can try to install Big Sur too. After succesfully installing Catalina, you can enroll to Apple's Mac beta program, and update the OS via System preferences. The PC will reboot multiple times during the install process. (4-5 times if I remember correctly.) You can also perform a clean install too. I started testing this EFI with Big Sur today (2020.11.11.), we'll se how it handles daily usage.
 
 **DO NOT USE INTEL HD4400 for Big Sur, as it is extremely glitchy.** In some cases, the OS behaves like you wouldn't have hardware acceleration, and the UI is laggy as hell. Even the Dock magnification animation freezes. 
 > Note: I've only tested it with MacOS Big Sur Beta 11.0.1.
@@ -66,12 +70,15 @@ I made a bootable FreeDOS USB, and copied over the exe file that Dell provided w
 
 ### Creating the install media
 
-You have to make an installation media to install MacOS, and in the second step, you have to make it bootable too. If you're using MacOS, you can head to the App Store to download the installer directly from Apple. Since I had no access to a Mac, I used a script called [gibMacOS](https://github.com/corpnewt/gibMacOS), which can also run under Windows. The process on Windows is the following:
+You have to make an installation media to install MacOS, and in the second step, you have to make it bootable too. If you're using MacOS, you can head to the App Store to download the installer directly from Apple. Since I had no access to a Mac, I used a script called [gibMacOS](https://github.com/corpnewt/gibMacOS), which can also run under Windows. Also, gibMacOS creates the EFI partition for you, so it is convinient. With the Apple method, you need to do that manually.
+
+With gibMacOS script, the process on Windows is the following:
 * Download gibMacOS from GitHub as a ZIP.
 * Extract the gibMacOS-master folder.
-* Run gibMacOS.bat, and choose otpion 1 to download the latest Catalina installer.
+* Run gibMacOS.bat, and choose otpion 1 to download the latest Catalina (or Big Sur) installer.
 * After the download succeeded, launch makeInstall.bat, enter the path of the previously downloaded files, (it will be in the script's folder) and choose you USB drive as an output drive. Wait until the process ends, it will take a while.
 After the install media was created, we need to make the USB drive bootable by PCs. At the moment, only real Macs can boot it. 
+
 > Note: you can use gibMacOS on Mac too, all you need to do is to launch the same files as you would do on Windows, but launch the ones with the .command file extension. For making the installer on Linux, please refer to [the OpenCore Install Guide.](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/linux-install.html)
 
 ### Configuring the EFI
@@ -82,7 +89,9 @@ In this step, we will tweak our bootloader, generate our fake Mac serials, than 
 
 #### GenSMBIOS values
 
-We need a script, called [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), to be able to fake create fake serial number, UUID, and MLB numbers. **This step is essential to have a working iMessage, so do not skip it. It is highly recommended to do this now, rather than post-install.** This script can run on Windows too. The process is the following:
+We need a script, called [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), to be able to fake create fake serial number, UUID, and MLB numbers. **This step is essential to have a working iMessage, so do not skip it. It is highly recommended to do this now, rather than post-install.** This script can run on Windows too. 
+
+The process is the following:
 * Download GenSMBIOS as a ZIP, then extract it.
 * Launch GenSMBIOS.bat, (or GenSMBIOS.command on Mac) and use option 1 to download MacSerial.
 * Choose option 2, to select the path of the config.plist file. It will be located in EFI/OC folder. ( The stuff you've downloaded from this repo. :) )
