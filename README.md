@@ -3,7 +3,7 @@ This repository contains a guide on how to install macOS Catalina on the Dell Op
 
 ## Disclaimer
 
-As I am a human being, like you, I make mistakes. Use the information provided here as is. I'm not responsible for any negative consequences, if you follow this guide, and something goes wrong. If you find any issues, feel free to open a ticket, or send me a message.
+As I am a human being, like you, I make mistakes. I'm not responsible for any negative consequences, if you follow this guide, and something goes wrong. If you find any issues, feel free to open a ticket, or send me a message. Use this guide at your own responsibility.
 
 ## Intro
 
@@ -137,7 +137,7 @@ This will put you iGPU into compute-only mode, and it will be used for encoding 
 
 ### Writing out the EFI to the install media
 
-After you've finished with the neccesary tweaks, you have to copy the EFI folder to the USB drive's EFI partition. This allows us to boot the MacOS installer on a PC. On Mac and Linux, this partition should be automatically mounted, if not, use the mount command in the terminal to mount it manually. On Windows, follow [this guide](https://www.insanelymac.com/forum/topic/311820-guide-mount-and-access-efi-partition-on-windows-10/) to mount the EFI partition of the USB stick. Copy the entire EFI folder to the drive and, after that we are ready to start working on the installation process.
+After you've finished with the neccesary tweaks, you have to copy the EFI folder to the USB drive's EFI partition. This allows us to boot the MacOS installer on a PC. On Mac and Linux, this partition should be automatically mounted, if not, use the mount command in the terminal to mount it manually. On Windows, follow [this guide](https://www.insanelymac.com/forum/topic/311820-guide-mount-and-access-efi-partition-on-windows-10/) to mount the EFI partition of the USB stick. Copy the entire EFI folder to the drive - including the root EFI folder too - and, after that we are ready to start working on the installation process.
 
 ## Installation
 
@@ -186,6 +186,8 @@ Reboot
     reboot
 
 We're done with the NVRAM variables, now we can start the installation process. 
+
+> Note: If you want to revert these changes, or you've "bricked" your computer take out the CMOS battery of the motherboard, short the RTCST jumper, with the looted one from the password reset jumper, and connect the computer to the power chord. Leave it like for a minute. After that, unplug the computer, and press the power button for 30 secs. Reinstall the password reset jumper to it's original place. Your machine is now resetted. [Check out this article on Dell's site, to find these stuff on your motherboard.] (https://www.dell.com/support/manuals/hu-hu/optiplex-3020-desktop/opt3020sffom-v1/system-board-components?guid=guid-fa8ac1e1-18ef-46eb-bb0b-39ac2e5d41fe&lang=en-us) 
 
 ### Installing MacOS
 
