@@ -137,7 +137,7 @@ This will put you iGPU into compute-only mode, and it will be used for encoding 
 
 ### Writing out the EFI to the install media
 
-After you've finished with the neccesary tweaks, you have to copy the EFI folder to the USB drive's EFI partition. This allows us to boot the MacOS installer on a PC. On Mac and Linux, this partition should be automatically mounted, if not, use the mount command in the terminal to mount it manually. On Windows, follow [this guide](https://www.insanelymac.com/forum/topic/311820-guide-mount-and-access-efi-partition-on-windows-10/) to mount the EFI partition of the USB stick. (Although the one created by gibMacOS is mounts automatically under Windows too.) Copy the entire EFI folder to the drive - including the root EFI folder too - and, after that we are ready to start working on the installation process.
+After you've finished with the neccesary tweaks, you have to copy the EFI folder to the USB drive's EFI partition. This allows us to boot the MacOS installer on a PC. On Mac and Linux, this partition should be automatically mounted, if not, use the mount command in the terminal to mount it manually. On Windows, follow [this guide](https://www.insanelymac.com/forum/topic/311820-guide-mount-and-access-efi-partition-on-windows-10/) to mount the EFI partition of the USB stick. (Although the one created by gibMacOS mounted automatically under Windows too.) Copy the entire EFI folder to the drive - including the root EFI folder too - and, after that we are ready to start working on the installation process.
 
 ## Installation
 
