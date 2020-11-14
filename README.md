@@ -20,7 +20,7 @@ Currently, this EFI is based on OpenCore 0.6.3, and includes the latest kexts as
 With this EFI, you can try to install Big Sur too. After succesfully installing Catalina, you can enroll to Apple's Mac beta program, and update the OS via System preferences. The PC will reboot multiple times during the install process. (4-5 times if I remember correctly.) You can also perform a clean install too. I started testing this EFI with Big Sur today (2020.11.11.), we'll se how it handles daily usage.
 
 **DO NOT USE INTEL HD4400 for Big Sur, as it is extremely glitchy.** In some cases, the OS behaves like you wouldn't have hardware acceleration, and the UI is laggy as hell. Even the Dock magnification animation freezes. 
-> Note: I've only tested it with MacOS Big Sur Beta 11.0.1.
+> Note: I'm using this EFI at the moment with the latest Big Sur release. 
 
 > Update: After 3 days of active usage, Big Sur seems pretty stable. There were a few updates too, which broke nothing at the moment.  
 
@@ -58,6 +58,8 @@ The SFF computer I use has 2 RAM slots, one was populated with a 4 GB Hynix HMT4
 #### Networking card
 
 The onboard Gigabit Ethernet is working perfectly, so no need to install an ethernet card, unless you want to use some fancy 10Gb cards. **I would recommend to install a Wifi+Bluetooth card, with the Broadcomm BCM94360CD chipset.** Althrough it is not required for a functioning system, it is needed to have Continuity, AirDrop, Handoff etc. The best part is, that no workarounds needed if you use this chipset, it's plug'n'play. **They're pretty inexpensive on EBay, but *always read the description,* because some chinese dudes want to rip you off, as they will send you a card with a compatible, but not the exactly same, and slower chipset.** Compatible chipsets will not work out-of-the box, so they will need some "kext magic" to be able to make them work. I see no reason to get a random card for slightly cheaper price, and it will casue more headaches for sure. **If the description contains text like *"maximum chipset"*, do not buy from that seller.** I recommend this exact chipset, because it was included in the iMac15,1, and has WIFI+BT on the same PCIe card. Some other chipsets may work too, for more information, please read [OpenCore's Wifi Buyers guide.](https://dortania.github.io/Wireless-Buyers-Guide/)
+
+> Note: A few days ago, I've installed a Fenvi T919 Wifi+BT card. MacOS recognizes it as an AirportExtreme card, and works perfectly. Keep in mind, you may need to log out and log back into your Apple ID, becasue continuity services and handoff will not work. Of course, if you install the card before you install macOS, no such problem will exist. If you install the card later, this should fix this issue. I had to do this on my iPhone too, but it was my fault, as I've removed the card that I made work before, and reinstalled macOS later. 
 
 #### Dedicated GPU
 You can freely use any decicated GPU that supports by MacOS. Keep in mind, this machine's PSU don't have any PCIe power headers, so use a GPU that will work with power coming from just the PCIe socket. (Under 75 watts GPUs.) Upgrading PSU may be an option, but getting one for the SSF and M form factors are pretty difficult. I'm using the iGPU, since don't need any graphics intensive applications. It will work just fine for everything, other than video rendering/CAD/3D modeling/gaming.
