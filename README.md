@@ -22,7 +22,8 @@ With this EFI, you can try to install Big Sur too. After succesfully installing 
 **DO NOT USE INTEL HD4400 for Big Sur, as it is extremely glitchy.** In some cases, the OS behaves like you wouldn't have hardware acceleration, and the UI is laggy as hell. Even the Dock magnification animation freezes. 
 > Note: I'm using this EFI at the moment with the latest Big Sur release. 
 
-> Update: After 3 days of active usage, Big Sur seems pretty stable. There were a few updates too, which broke nothing at the moment.  
+> Update: After 3 days of active usage, Big Sur seems pretty stable. There were a few updates too, which broke nothing at the moment.
+> Update 2: Big Sur update broke the 144hz refresh rate, now I'm locked to 60hz. This was working under Catalina. I have the option to set the refresh rate up to 120hz, but as turns out, it has no effect, the monitor's OSD shows that the refresh rate is in fact 60hz. Weird. 
 
 ## Before you start
 
