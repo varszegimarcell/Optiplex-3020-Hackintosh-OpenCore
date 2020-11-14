@@ -22,6 +22,8 @@ With this EFI, you can try to install Big Sur too. After succesfully installing 
 **DO NOT USE INTEL HD4400 for Big Sur, as it is extremely glitchy.** In some cases, the OS behaves like you wouldn't have hardware acceleration, and the UI is laggy as hell. Even the Dock magnification animation freezes. 
 > Note: I've only tested it with MacOS Big Sur Beta 11.0.1.
 
+> Update: After 3 days of active usage, Big Sur seems pretty stable. There were a few updates too, which broke nothing at the moment.  
+
 ## Before you start
 
 ### Requirements
