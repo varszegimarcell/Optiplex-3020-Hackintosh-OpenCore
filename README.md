@@ -19,6 +19,8 @@ Currently, this EFI is based on OpenCore 0.6.3, and includes the latest kexts as
 
 With this EFI, you can try to install Big Sur too. After succesfully installing Catalina, you can enroll to Apple's Mac beta program, and update the OS via System preferences. The PC will reboot multiple times during the install process. (4-5 times if I remember correctly.) You can also perform a clean install too. I started testing this EFI with Big Sur today (2020.11.11.), we'll se how it handles daily usage.
 
+> NOTICE: Some users (including me) experienced a problem when tried to update from System Preferences, as after the install, the machine booted back to Catalina, like nothing was changed. I have no fixes for this issue at the moment, if the System Preferences update fails, you have to make an installer USB.
+
 **DO NOT USE INTEL HD4400 for Big Sur, as it is extremely glitchy.** In some cases, the OS behaves like you wouldn't have hardware acceleration, and the UI is laggy as hell. Even the Dock magnification animation freezes. 
 > Note: I'm using this EFI at the moment with the latest Big Sur release. 
 
@@ -85,6 +87,8 @@ With gibMacOS script, the process on Windows is the following:
 After the install media was created, we need to make the USB drive bootable by PCs. At the moment, only real Macs can boot it. 
 
 > Note: you can use gibMacOS on Mac too, all you need to do is to launch the same files as you would do on Windows, but launch the ones with the .command file extension. For making the installer on Linux, please refer to [the OpenCore Install Guide.](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/linux-install.html)
+
+> NOTICE: as the installer media structure seems to changed with Big Sur, gibMacOS currently unable to create Big Sur installers. You have to use the app store for now. 
 
 ### Configuring the EFI
 
