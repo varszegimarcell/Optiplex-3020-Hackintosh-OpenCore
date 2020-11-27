@@ -635,8 +635,7 @@
 	<key>Misc</key>
 	<dict>
 		<key>BlessOverride</key>
-		<array>
-		</array>
+		<array/>
 		<key>Boot</key>
 		<dict>
 			<key>ConsoleAttributes</key>
@@ -889,7 +888,7 @@
 			<key>SystemSerialNumber</key>
 			<string></string>
 			<key>SystemUUID</key>
-			<string>A23DC50E-E709-4D8D-A55C-AEAE06B56387</string>
+			<string></string>
 		</dict>
 		<key>UpdateDataHub</key>
 		<true/>
