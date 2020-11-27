@@ -24,8 +24,7 @@ With this EFI, you can try to install Big Sur too. After succesfully installing 
 **DO NOT USE INTEL HD4400 for Big Sur, as it is extremely glitchy.** In some cases, the OS behaves like you wouldn't have hardware acceleration, and the UI is laggy as hell. Even the Dock magnification animation freezes. 
 > Note: I'm using this EFI at the moment with the latest Big Sur release. 
 
-> Update: After 3 days of active usage, Big Sur seems pretty stable. There were a few updates too, which broke nothing at the moment.
-> Update 2: Big Sur update broke the 144hz refresh rate, now I'm locked to 60hz. This was working under Catalina. I have the option to set the refresh rate up to 120hz, but as turns out, it has no effect, the monitor's OSD shows that the refresh rate is in fact 60hz. Weird. 
+> Update: I'm on Big Sur for almost a month now. 144hz is not working, DRM patches are broken, and sometimes I experience sleep issues, when the machine stuck in a state, that it runs all fans 100%, and no response, just black screen. I have to reset the computer in this case. Other than that, it works as it should. :)
 
 ## Before you start
 
@@ -62,7 +61,7 @@ The SFF computer I use has 2 RAM slots, one was populated with a 4 GB Hynix HMT4
 
 The onboard Gigabit Ethernet is working perfectly, so no need to install an ethernet card, unless you want to use some fancy 10Gb cards. **I would recommend to install a Wifi+Bluetooth card, with the Broadcomm BCM94360CD chipset.** Althrough it is not required for a functioning system, it is needed to have Continuity, AirDrop, Handoff etc. The best part is, that no workarounds needed if you use this chipset, it's plug'n'play. **They're pretty inexpensive on EBay, but *always read the description,* because some chinese dudes want to rip you off, as they will send you a card with a compatible, but not the exactly same, and slower chipset.** Compatible chipsets will not work out-of-the box, so they will need some "kext magic" to be able to make them work. I see no reason to get a random card for slightly cheaper price, and it will casue more headaches for sure. **If the description contains text like *"maximum chipset"*, do not buy from that seller.** I recommend this exact chipset, because it was included in the iMac15,1, and has WIFI+BT on the same PCIe card. Some other chipsets may work too, for more information, please read [OpenCore's Wifi Buyers guide.](https://dortania.github.io/Wireless-Buyers-Guide/)
 
-> Note: A few days ago, I've installed a Fenvi T919 Wifi+BT card. MacOS recognizes it as an AirportExtreme card, and works perfectly. Keep in mind, you may need to log out and log back into your Apple ID, becasue continuity services and handoff will not work. Of course, if you install the card before you install macOS, no such problem will exist. If you install the card later, this should fix this issue. I had to do this on my iPhone too, but it was my fault, as I've removed the card that I made work before, and reinstalled macOS later. 
+I've installed a Fenvi T919 Wifi+BT card. MacOS recognizes it as an AirportExtreme card, and works perfectly. Keep in mind, you may need to log out and log back into your Apple ID, becasue continuity services and handoff will not work. Of course, if you install the card before you install macOS, no such problem will exist. If you install the card later, this should fix this issue. I had to do this on my iPhone too, but it was my fault, as I've removed the card that I made work before, and reinstalled macOS later. 
 
 #### Dedicated GPU
 You can freely use any decicated GPU that supports by MacOS. Keep in mind, this machine's PSU don't have any PCIe power headers, so use a GPU that will work with power coming from just the PCIe socket. (Under 75 watts.) ~~Upgrading PSU may be an option, but getting one for the SSF and M form factors are pretty difficult.~~ I'm using the iGPU, since don't need any graphics intensive applications. It will work just fine for everything, other than video rendering/CAD/3D modeling/gaming.
@@ -177,9 +176,11 @@ Now you should be in a grub shell, which is indicated by the
 
 prompt. We need to execute all the commands below.
 
-Disable CFG Lock:
+Disable CFG Lock, in case of 3020 SFF and 3020 MT:
 
     setup_var 0xD9E 0x0
+    
+> IMPORTANT NOTE FOR 3020 M: the CFG lock offset value seems to be different on these machines. At the moment, I have no access to a BIOS dump of an 3020 M, but when I get my hands on one, I'll update the guide in respect to the 3020 M. DO NOT USE THE 0xDE9 OFFSET ON THESE MACHINES, becasue it is unknown what it does. For a workaround, modify the config.plist, and set the Kernel > Quirks > AppleCpuPmCfgLock and AppleXcpmCfgLock values to true. Keep in mind, this is a temporary solution, and when we have the correct offset for disabling the CFG lock on the 3020 M, revert your config.pilst to the original state. According to the Opencore documentation, these quirks should be avoided whenever it is possible, but in this case, the machine is unable to boot without these quirks.  
 
 Set DVMT pre-alloc to 64MB
 
