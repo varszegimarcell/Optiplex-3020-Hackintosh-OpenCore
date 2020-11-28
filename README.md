@@ -174,13 +174,12 @@ Now you should be in a grub shell, which is indicated by the
 
     grub>
 
-prompt. We need to execute all the commands below.
+prompt. We need to execute all the commands below. Pay special attention to run the commands that are meant for your computer. If you mismatch these commands, reset the motherboard, as applying the wrong variables will cause undefinied behavior. See note after section how to do it. 
 
-Disable CFG Lock, in case of 3020 SFF and 3020 MT:
+**In case of 3020 MT and 3020 SFF computers** 
+Disable CFG Lock:
 
-    setup_var 0xD9E 0x0
-    
-> IMPORTANT NOTE FOR 3020 M: the CFG lock offset value seems to be different on these machines. At the moment, I have no access to a BIOS dump of an 3020 M, but when I get my hands on one, I'll update the guide in respect to the 3020 M. DO NOT USE THE 0xDE9 OFFSET ON THESE MACHINES, becasue it is unknown what it does. For a workaround, modify the config.plist, and set the Kernel > Quirks > AppleCpuPmCfgLock and AppleXcpmCfgLock values to true. Keep in mind, this is a temporary solution, and when we have the correct offset for disabling the CFG lock on the 3020 M, revert your config.pilst to the original state. According to the Opencore documentation, these quirks should be avoided whenever it is possible, but in this case, the machine is unable to boot without these quirks.  
+    setup_var 0xD9E 0x0 
 
 Set DVMT pre-alloc to 64MB
 
@@ -190,12 +189,35 @@ Enable EHCI hand-off
 
     setup_var 0x2 0x1
     setup_var 0x144 0x1
+    setup_var 0x15A 0x2
     setup_var 0x146 0x0
     setup_var 0x147 0x0
 
 Reboot
 
     reboot
+
+**In case of 3020 M computer** 
+Disable CFG Lock:
+
+    setup_var  0x53 0x0 
+
+Set DVMT pre-alloc to 64MB
+
+    setup_var 0x2F2 0x2
+
+Enable EHCI hand-off
+
+    setup_var 0x2 0x1
+    setup_var 0x187 0x1
+    setup_var 0x1A4 0x2
+    setup_var 0x189 0x0
+    setup_var 0x18A 0x0
+
+Reboot
+
+    reboot
+
 
 We're done with the NVRAM variables, now we can start the installation process. 
 
