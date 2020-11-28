@@ -174,9 +174,10 @@ Now you should be in a grub shell, which is indicated by the
 
     grub>
 
-prompt. We need to execute all the commands below. Pay special attention to run the commands that are meant for your computer. If you mismatch these commands, reset the motherboard, as applying the wrong variables will cause undefinied behavior. See note after section how to do it. 
+prompt. We need to execute all the commands below. Pay special attention to run the commands that are meant for your computer. If you mismatch these commands, reset the motherboard, as applying the wrong variables will cause undefinied behavior. See note after section how to do it. Keep in mind, resetting the NVRAM via OpenCore will not affect these values.
 
 **In case of 3020 MT and 3020 SFF computers** 
+
 Disable CFG Lock:
 
     setup_var 0xD9E 0x0 
@@ -198,6 +199,7 @@ Reboot
     reboot
 
 **In case of 3020 M computer** 
+
 Disable CFG Lock:
 
     setup_var  0x53 0x0 
