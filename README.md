@@ -15,6 +15,8 @@ Since I'm an active Hackintosh user on this machine, I will update the EFI perio
 
 Currently, this EFI is based on OpenCore 0.6.3, and includes the latest kexts as of 2020.11.09.
 
+> Note: I'm testing OC 0.6.4, new release will happen soon. Also, I plan to rewrite the guide, focusing mainly on Big Sur.
+
 ## About Big Sur
 
 With this EFI, you can try to install Big Sur too. After succesfully installing Catalina, you can enroll to Apple's Mac beta program, and update the OS via System preferences. The PC will reboot multiple times during the install process. (4-5 times if I remember correctly.) You can also perform a clean install too. I started testing this EFI with Big Sur today (2020.11.11.), we'll se how it handles daily usage.
