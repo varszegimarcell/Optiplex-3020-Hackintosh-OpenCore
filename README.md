@@ -1,5 +1,10 @@
-# Dell Optiplex 3020 Hackintosh Catalina 10.15, Big Sur 11 + OpenCore 0.6.4
-This repository contains a guide on how to install macOS Catalina (or Big Sur) on the Dell Optiplex 3020, with the neccesary files.
+# Dell Optiplex 3020 Hackintosh OpenCore
+
+This repository contains a guide on how to install macOS on the Dell Optiplex 3020, with the neccesary files, using OpenCore bootloader.
+
+This guide covers the following macOS versions:
+* macOS 10.15 Cattalina
+* macOS 11 Big Sur
 
 ## Disclaimer
 
