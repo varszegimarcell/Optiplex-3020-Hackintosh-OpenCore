@@ -1,5 +1,5 @@
-# Dell Optiplex 3020 Hackintosh Catalina 10.15 + OpenCore 0.6.3
-This repository contains a guide on how to install macOS Catalina on the Dell Optiplex 3020, with the neccesary files.
+# Dell Optiplex 3020 Hackintosh Catalina 10.15, Big Sur 11 + OpenCore 0.6.4
+This repository contains a guide on how to install macOS Catalina (or Big Sur) on the Dell Optiplex 3020, with the neccesary files.
 
 ## Disclaimer
 
@@ -13,20 +13,19 @@ The Dell Optiplex 3020 is a common and cheap business computer, based on the 4th
 
 Since I'm an active Hackintosh user on this machine, I will update the EFI periodically here as anything new is available.
 
-Currently, this EFI is based on OpenCore 0.6.3, and includes the latest kexts as of 2020.11.09.
+Currently, this EFI is based on OpenCore 0.6.4, and includes the latest kexts as of 2020.12.30.
 
-> Note: I'm testing OC 0.6.4, new release will happen soon. Also, I plan to rewrite the guide, focusing mainly on Big Sur.
 
 ## About Big Sur
 
-With this EFI, you can try to install Big Sur too. After succesfully installing Catalina, you can enroll to Apple's Mac beta program, and update the OS via System preferences. The PC will reboot multiple times during the install process. (4-5 times if I remember correctly.) You can also perform a clean install too. I started testing this EFI with Big Sur today (2020.11.11.), we'll se how it handles daily usage.
+With this EFI, you can try to install Big Sur too. After succesfully installing Catalina, you can enroll to Apple's Mac beta program, and update the OS via System preferences. The PC will reboot multiple times during the install process. (4-5 times if I remember correctly.) You can also perform a clean install too. 
 
-> NOTICE: Some users (including me) experienced a problem when tried to update from System Preferences, as after the install, the machine booted back to Catalina, like nothing was changed. I have no fixes for this issue at the moment, if the System Preferences update fails, you have to make an installer USB.
+> NOTICE: Some users (including me) experienced a problem when tried to update from System Preferences, as after the install, the machine booted back to Catalina, like nothing was changed. I have no fixes for this issue at the moment, if the System Preferences update fails, you have to update via an install USB.
 
 **DO NOT USE INTEL HD4400 for Big Sur, as it is extremely glitchy.** In some cases, the OS behaves like you wouldn't have hardware acceleration, and the UI is laggy as hell. Even the Dock magnification animation freezes. 
 > Note: I'm using this EFI at the moment with the latest Big Sur release. 
 
-> Update: I'm on Big Sur for almost a month now. 144hz is not working, DRM patches are broken, and sometimes I experience sleep issues, when the machine stuck in a state, that it runs all fans 100%, and no response, just black screen. I have to reset the computer in this case. Other than that, it works as it should. :)
+> Update: I'm on Big Sur for almost 2 months now. 144hz is not working, DRM patches are broken, and sometimes I experience sleep issues, when the machine stuck in a state, that it runs all fans 100%, and no response, just black screen. I have to reset the computer in this case. Other than that, it works as it should. :)
 
 ## Before you start
 
@@ -80,7 +79,11 @@ I made a bootable FreeDOS USB, and copied over the exe file that Dell provided w
 
 ### Creating the install media
 
-You have to make an installation media to install MacOS, and in the second step, you have to make it bootable too. If you're using MacOS, you can head to the App Store to download the installer directly from Apple. Since I had no access to a Mac, I used a script called [gibMacOS](https://github.com/corpnewt/gibMacOS), which can also run under Windows. Also, gibMacOS creates the EFI partition for you, so it is convinient. With the Apple method, you need to do that manually.
+You have to make an installation media to install MacOS, and later you have to make it bootable by PCs too. If you're using MacOS, you can head to the App Store to download the installer directly from Apple.
+
+#### Creating Catalina (10.15) install media on Windows
+
+Since I had no access to a Mac, I used a script called [gibMacOS](https://github.com/corpnewt/gibMacOS), which can also run under Windows. Also, gibMacOS creates the EFI partition for you, so it is convinient. With the Apple method, you need to do that manually.
 
 With gibMacOS script, the process on Windows is the following:
 * Download gibMacOS from GitHub as a ZIP.
@@ -91,7 +94,11 @@ After the install media was created, we need to make the USB drive bootable by P
 
 > Note: you can use gibMacOS on Mac too, all you need to do is to launch the same files as you would do on Windows, but launch the ones with the .command file extension. For making the installer on Linux, please refer to [the OpenCore Install Guide.](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/linux-install.html)
 
-> NOTICE: as the installer media structure seems to changed with Big Sur, gibMacOS currently unable to create Big Sur installers. You have to use the app store for now. 
+#### Creating Big Sur (11) install media on Windows
+
+Since gibMacOS is broken with Big Sur, making an install media on Windows is not as simple as using gibMacOS. OpenCore has a nicely detailed guide about the topic, check it out on [this link.](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/winblows-install.html#downloading-macos) Keep in mind, this method creates a web installer only, so make sure you have active internet connection during the install. 
+
+For Mac and Linux, check [this link.](https://dortania.github.io/OpenCore-Install-Guide/extras/big-sur/#installation)
 
 ### Configuring the EFI
 
