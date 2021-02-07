@@ -6,7 +6,7 @@ This guide covers the following macOS versions:
 * macOS 10.15 Cattalina
 * macOS 11 Big Sur
 
-NOTE: Due to a CPU failure in my machine, I am unable to update the repo. I do not want to release untested OC + kext package. As soon as I fix the machine, the regular updates will continue.
+NOTE: Due to a CPU failure in my machine (2021.02.05.), I am unable to update the repo at the moment. I do not want to release untested OC + kext package. As soon as I fix the machine, the regular updates will continue. I will have money to buy replacement part in a month or so. 
 
 ## Disclaimer
 
