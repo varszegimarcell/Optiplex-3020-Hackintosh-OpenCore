@@ -6,6 +6,8 @@ This guide covers the following macOS versions:
 * macOS 10.15 Cattalina
 * macOS 11 Big Sur
 
+NOTE: Due to a CPU failure in my machine, I am unable to update the repo. I do not want to release untested OC + kext package. As soon as I fix the machine, the regular updates will continue.
+
 ## Disclaimer
 
 As I am a human being, like you, I make mistakes. I'm not responsible for any negative consequences, if you follow this guide, and something goes wrong. If you find any issues, feel free to open a ticket, or send me a message. Use this guide at your own responsibility.
