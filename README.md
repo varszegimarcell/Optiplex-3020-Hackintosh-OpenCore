@@ -239,7 +239,7 @@ Reboot
 
 We're done with the NVRAM variables, now we can start the installation process. 
 
-> Note: If you want to revert these changes, or you've "bricked" your computer take out the CMOS battery of the motherboard, short the RTCST jumper, with the looted one from the password reset jumper, and connect the computer to the power chord. Leave it like for a minute. After that, unplug the computer, and press the power button for 30 secs. Reinstall the password reset jumper to it's original place. Your machine is now resetted. Check out this article on [Dell's site](https://www.dell.com/support/manuals/hu-hu/optiplex-3020-desktop/opt3020sffom-v1/system-board-components?guid=guid-fa8ac1e1-18ef-46eb-bb0b-39ac2e5d41fe&lang=en-us), to find these stuff on your motherboard. 
+> Note: If you want to revert these changes, or you've "bricked" your computer take out the CMOS battery of the motherboard, short the RTCST jumper, with the jumper looted from the password reset jumper, and connect the computer to the power chord. Leave it like for a minute. After that, unplug the computer, and press the power button for 30 secs. Reinstall the password reset jumper to it's original place, and the CMOS battery. Your machine is now resetted. Check out this article on [Dell's site](https://www.dell.com/support/manuals/hu-hu/optiplex-3020-desktop/opt3020sffom-v1/system-board-components?guid=guid-fa8ac1e1-18ef-46eb-bb0b-39ac2e5d41fe&lang=en-us), to find these stuff on your motherboard. 
 
 ### Installing MacOS
 
