@@ -115,7 +115,7 @@ In this step, we will tweak our bootloader, generate our fake Mac serials, than 
 
 #### GenSMBIOS values
 
-We need a script, called [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), to be able to fake create fake serial number, UUID, and MLB numbers. **This step is essential to have a working iMessage, so do not skip it. It is highly recommended to do this now, rather than post-install.** This script can run on Windows too. 
+We need a script, called [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), to be able to create fake serial number, UUID, and MLB numbers. **This step is essential to have a working iMessage, so do not skip it. It is highly recommended to do this now, rather than post-install.** This script can run on Windows too. 
 
 The process is the following:
 * Download GenSMBIOS as a ZIP, then extract it.
