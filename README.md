@@ -250,5 +250,6 @@ We need an app called [EFI Agent](https://github.com/headkaze/EFI-Agent) to be a
 
 If iMessage says "contact with apple support" on a login attempt, call Apple spuuort, and tell them that your 5K iMac is unable to log into iMessage, and they'll fix it for you. :D It helps if you have a credit card added to your Apple ID, so they know you're not a fake person who is using a Hackintosh. For further iMessage troubleshooting, please visit [Tonymacx86's guide here](https://www.tonymacx86.com/threads/how-to-fix-imessage.110471/)
 
+## Thank you
 Special thanks to [zearp](https://github.com/zearp), without his guide, mine wouldn't be possible, especially at setting the NVRAM variables.  
 Special thanks to [jayphizzle](https://github.com/jayphizzle), his donation made me able to buy a new CPU, after my old one died.
