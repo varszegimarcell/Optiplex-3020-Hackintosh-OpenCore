@@ -24,7 +24,9 @@ Currently, this EFI is based on OpenCore 0.6.7, and includes the latest kexts as
 
 With this EFI, you can install Big Sur. I started this guide in the Catalina days, now I only cover Big Sur, as it is pretty stable at this point. This EFI may work with Catalina too, although I don't test it anymore. 
 
-> NOTICE: Some users (including me) experienced a problem when tried to update from System Preferences, as after the install, the machine booted back to Catalina, like nothing was changed. I have no fixes for this issue at the moment, if the System Preferences update fails, you have to update via an install USB.
+If you want to update from Catalina, go to the System Preferences, check for updates and just install it. 
+
+> NOTICE: Some users (including me) experienced a problem when tried to update Catalina to Big Sur from System Preferences, as after the install, the machine booted back to Catalina, like nothing was changed. I have no fixes for this issue at the moment, if the System Preferences update fails, you have to update via an install USB.
 
 **About INTEL HD4400 with Big Sur:** With the latest kexts, Big Sur is now usable with Intel HD4400. Sadly, it is far from bug free, some weird graphical glitches can happen all the time. I noticed, that sometimes, folder icons show up with a file icon too for example, rendered buggy on top of the folder icon. Also, Preview can freeze with large (4K) image files. I have sometimes issues in GarageBand too. I still strongly recommend to use Intel HD4600 instead, but at least is is usable with HD4400 too. 
 
