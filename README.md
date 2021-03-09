@@ -3,10 +3,7 @@
 This repository contains a guide on how to install macOS on the Dell Optiplex 3020, with the neccesary files, using OpenCore bootloader.
 
 This guide covers the following macOS versions:
-* macOS 10.15 Cattalina
 * macOS 11 Big Sur
-
-NOTE: Due to a CPU failure in my machine (2021.02.05.), I am unable to update the repo at the moment. I do not want to release untested OC + kext package. As soon as I fix the machine, the regular updates will continue. I will have money to buy replacement part in a month or so. 
 
 ## Disclaimer
 
@@ -20,19 +17,16 @@ The Dell Optiplex 3020 is a common and cheap business computer, based on the 4th
 
 Since I'm an active Hackintosh user on this machine, I will update the EFI periodically here as anything new is available.
 
-Currently, this EFI is based on OpenCore 0.6.4, and includes the latest kexts as of 2020.12.30.
+Currently, this EFI is based on OpenCore 0.6.7, and includes the latest kexts as of 2021.03.09.
 
 
 ## About Big Sur
 
-With this EFI, you can try to install Big Sur too. After succesfully installing Catalina, you can enroll to Apple's Mac beta program, and update the OS via System preferences. The PC will reboot multiple times during the install process. (4-5 times if I remember correctly.) You can also perform a clean install too. 
+With this EFI, you can install Big Sur. I started this guide in the Catalina days, now I only cover Big Sur, as it is pretty stable at this point. This EFI may work with Catalina too, although I don't test it anymore. 
 
 > NOTICE: Some users (including me) experienced a problem when tried to update from System Preferences, as after the install, the machine booted back to Catalina, like nothing was changed. I have no fixes for this issue at the moment, if the System Preferences update fails, you have to update via an install USB.
 
-**DO NOT USE INTEL HD4400 for Big Sur, as it is extremely glitchy.** In some cases, the OS behaves like you wouldn't have hardware acceleration, and the UI is laggy as hell. Even the Dock magnification animation freezes. 
-> Note: I'm using this EFI at the moment with the latest Big Sur release. 
-
-> Update: I'm on Big Sur for almost 2 months now. 144hz is not working, DRM patches are broken, and sometimes I experience sleep issues, when the machine stuck in a state, that it runs all fans 100%, and no response, just black screen. I have to reset the computer in this case. Other than that, it works as it should. :)
+**About INTEL HD4400 with Big Sur:** With the latest kexts, Big Sur is now usable with Intel HD4400. Sadly, it is far from bug free, some weird graphical glitches can happen all the time. I noticed, that sometimes, folder icons show up with a file icon too for example, rendered buggy on top of the folder icon. Also, Preview can freeze with large (4K) image files. I have sometimes issues in GarageBand too. I still strongly recommend to use Intel HD4600 instead, but at least is is usable with HD4400 too. 
 
 ## Before you start
 
@@ -54,7 +48,7 @@ You should consider some hardware upgrades to this machine, to archive the best 
 
 By default, my machine came with an Intel i3-4150 CPU, which is fine, but not ideal for a Hackintosh machine. This may vary between machines, so check your configuration.
 
-The problem with the i3-4150 CPU is that it has Intel HD4400 graphics, which will work, but it will have some small issues, which I explain in this guide later. No Mac computer was shipped with this iGPU, so it is not suprising that it has issues. **Consider upgrading to a CPU, that has Intel HD4600 graphics instead**, LGA1150 Haswell CPUs are pretty cheap on the used market. Ideally, **I would install an i5-4590S,** since we're going to fake our machine as an iMac 15,1 and this machine was shipped with this exact CPU. **Keep in mind, the cooling solution included in the machine is rated to 65W, so please check the TDP rating of your new CPU. Also, keep in mind the capabilities of the power supply.**
+The problem with the i3-4150 CPU is that it has Intel HD4400 graphics, which will work, but it will have some small issues, which I explain in this guide later. No Mac computer was shipped with this iGPU, so it is not suprising that it has issues. **Consider upgrading to a CPU, that has Intel HD4600 graphics instead**, LGA1150 Haswell CPUs are pretty cheap on the used market. Ideally, **I would install an i5-4590S,** since we're going to fake our machine as an iMac 15,1 and this machine was shipped with this exact CPU. **Keep in mind, the cooling solution included in the machine is rated to 65W in case of the 3020 MT and SFF, and 35W in case of the 3020M. Please check the TDP rating of your new CPU. Also, keep in mind the capabilities of the power supply.**
 
 #### RAM
 
@@ -63,7 +57,7 @@ The SFF computer I use has 2 RAM slots, one was populated with a 4 GB Hynix HMT4
 
 #### SSD
 
-**I highly recommend to install a SATA 3 SSD, to make things more speedy.** My computer came with a Seagate SSHD, with 500GB of capacity. Since optical drives pretty much dead at this point, I've decided to keep disconnected mine, and install an SSD instead. On the drive tray, you have space for two 2,5" drives, so no need to remove the optical drive. I've installed the main system on the SSD, and I use the SSHD for backups. I would recommend using Samsung SSDs.
+**I highly recommend to install a SATA 3 SSD, to make things more speedy.** My computer came with a Seagate SSHD, with 500GB of capacity. Since optical drives pretty much dead at this point, I've decided to keep disconnected mine, and install an SSD instead. On the drive tray, you have space for two 2,5" drives, so no need to remove the ODD. I've installed the main system on the SSD, and I use the SSHD for backups. I would recommend using Samsung SSDs.
 
 #### Networking card
 
@@ -88,22 +82,9 @@ I made a bootable FreeDOS USB, and copied over the exe file that Dell provided w
 
 You have to make an installation media to install MacOS, and later you have to make it bootable by PCs too. If you're using MacOS, you can head to the App Store to download the installer directly from Apple.
 
-#### Creating Catalina (10.15) install media on Windows
-
-Since I had no access to a Mac, I used a script called [gibMacOS](https://github.com/corpnewt/gibMacOS), which can also run under Windows. Also, gibMacOS creates the EFI partition for you, so it is convinient. With the Apple method, you need to do that manually.
-
-With gibMacOS script, the process on Windows is the following:
-* Download gibMacOS from GitHub as a ZIP.
-* Extract the gibMacOS-master folder.
-* Run gibMacOS.bat, and choose otpion 1 to download the latest Catalina (or Big Sur) installer.
-* After the download succeeded, launch makeInstall.bat, enter the path of the previously downloaded files, (it will be in the script's folder) and choose you USB drive as an output drive. Wait until the process ends, it will take a while.
-After the install media was created, we need to make the USB drive bootable by PCs. At the moment, only real Macs can boot it. 
-
-> Note: you can use gibMacOS on Mac too, all you need to do is to launch the same files as you would do on Windows, but launch the ones with the .command file extension. For making the installer on Linux, please refer to [the OpenCore Install Guide.](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/linux-install.html)
-
 #### Creating Big Sur (11) install media on Windows
 
-Since gibMacOS is broken with Big Sur, making an install media on Windows is not as simple as using gibMacOS. OpenCore has a nicely detailed guide about the topic, check it out on [this link.](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/winblows-install.html#downloading-macos) Keep in mind, this method creates a web installer only, so make sure you have active internet connection during the install. 
+Since gibMacOS is broken with Big Sur, making an install media on Windows is now more difficult, than it was on Catalina. OpenCore has a nicely detailed guide about the topic, check it out on [this link.](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/winblows-install.html#downloading-macos) Keep in mind, this method creates a web installer only, so make sure you have active internet connection during the install. 
 
 For Mac and Linux, check [this link.](https://dortania.github.io/OpenCore-Install-Guide/extras/big-sur/#installation)
 
@@ -163,7 +144,7 @@ This will put you iGPU into compute-only mode, and it will be used for encoding 
 
 ### Writing out the EFI to the install media
 
-After you've finished with the neccesary tweaks, you have to copy the EFI folder to the USB drive's EFI partition. This allows us to boot the MacOS installer on a PC. On Mac and Linux, this partition should be automatically mounted, if not, use the mount command in the terminal to mount it manually. On Windows, follow [this guide](https://www.insanelymac.com/forum/topic/311820-guide-mount-and-access-efi-partition-on-windows-10/) to mount the EFI partition of the USB stick. (Although the one created by gibMacOS mounted automatically under Windows too.) Copy the entire EFI folder to the drive - including the root EFI folder too - and, after that we are ready to start working on the installation process.
+After you've finished with the neccesary tweaks, you have to copy the EFI folder to the USB drive's EFI partition. This allows us to boot the MacOS installer on a PC. On Mac and Linux, this partition should be automatically mounted, if not, use the mount command in the terminal to mount it manually. On Windows, follow [this guide](https://www.insanelymac.com/forum/topic/311820-guide-mount-and-access-efi-partition-on-windows-10/) to mount the EFI partition of the USB stick. (Although the one created by gibMacOS mounted automatically under Windows too.) Copy the entire EFI folder to the drive - including the root EFI folder too - and, after that we are ready to start working on the installation process. If you've followed OpenCore's media creation guide, use this EFI folder insted their generic one. 
 
 ## Installation
 
@@ -268,3 +249,4 @@ We need an app called [EFI Agent](https://github.com/headkaze/EFI-Agent) to be a
 If iMessage says "contact with apple support" on a login attempt, call Apple spuuort, and tell them that your 5K iMac is unable to log into iMessage, and they'll fix it for you. :D It helps if you have a credit card added to your Apple ID, so they know you're not a fake person who is using a Hackintosh. For further iMessage troubleshooting, please visit [Tonymacx86's guide here](https://www.tonymacx86.com/threads/how-to-fix-imessage.110471/)
 
 Special thanks to [zearp](https://github.com/zearp), without his guide, mine wouldn't be possible, especially at setting the NVRAM variables.  
+Special thanks to [jayphizzle](https://github.com/jayphizzle), his donation made me able to buy a new CPU, after my old one died.
