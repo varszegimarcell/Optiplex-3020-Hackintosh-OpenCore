@@ -131,11 +131,9 @@ dictionary, in the config.plist file. Then, remove these entries:
 
     disable-external-gpu
     disable-hdmi-patches
-    enable-hdmi20
     framebuffer-patch-enabled
     framebuffer-fbmem
     framebuffer-stolenmem
-    framebuffer-unifiedmem
     hda-gfx
 
 After that, modify the following value like that:
@@ -143,6 +141,18 @@ After that, modify the following value like that:
     AAPL,ig-platform-id -> 04001204
 
 This will put you iGPU into compute-only mode, and it will be used for encoding tasks only by macOS. In this state, the iGPU is not capable to drive a display.
+
+Finally, remove boot arguments form the
+    
+    NVRAM -> Add -> 7C436110-AB2A-4BBB-A880-FE41995C9F82 -> boot args 
+
+field, and remove all the arguments listed here:
+   
+    -igfxmpc 
+    -igfxcdc 
+    -igfxdvmt
+    
+These are some Whatevergreen pathces, that you do not need in iGPU encode only mode.
 
 ### Writing out the EFI to the install media
 
