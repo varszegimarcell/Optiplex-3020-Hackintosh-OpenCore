@@ -263,3 +263,4 @@ If iMessage says "contact with apple support" on a login attempt, call Apple spu
 ## Thank you
 Special thanks to [zearp](https://github.com/zearp), without his guide, mine wouldn't be possible, especially at setting the NVRAM variables.  
 Special thanks to [jayphizzle](https://github.com/jayphizzle), his donation made me able to buy a new CPU, after my old one died.
+Special thanks to [u/valentinivan](https://www.reddit.com/user/valentinivan) for his graphics patch recommendations, as well as some general audio configuration advices.
