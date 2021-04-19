@@ -17,7 +17,7 @@ The Dell Optiplex 3020 is a common and cheap business computer, based on the 4th
 
 Since I'm an active Hackintosh user on this machine, I will update the EFI periodically here as anything new is available.
 
-Currently, this EFI is based on OpenCore 0.6.7, and includes the latest kexts as of 2021.03.09.
+Currently, this EFI is based on OpenCore 0.6.8, and includes the latest kexts as of 2021.04.19.
 
 
 ## About Big Sur
