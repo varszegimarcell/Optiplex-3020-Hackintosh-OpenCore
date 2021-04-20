@@ -260,18 +260,6 @@ We need an app called [EFI Agent](https://github.com/headkaze/EFI-Agent) to be a
 
 If iMessage says "contact with apple support" on a login attempt, call Apple spuuort, and tell them that your 5K iMac is unable to log into iMessage, and they'll fix it for you. :D It helps if you have a credit card added to your Apple ID, so they know you're not a fake person who is using a Hackintosh. For further iMessage troubleshooting, please visit [Tonymacx86's guide here](https://www.tonymacx86.com/threads/how-to-fix-imessage.110471/)
 
-## Troubleshooting
-
-### CFG Lock
-
-If CFG Lock is not disabled, you see error messages similar to this:
-
-![CFG Lock Not Disabled](https://user-images.githubusercontent.com/74878491/115159803-8394cd00-a05a-11eb-82a3-2a4c4fba47a8.jpg "CFG Lock Not Disabled")
-If you get an error message like this, go back to [Setting NVRAM variables](#setting-nvram-variables) and make sure you have ran all the commands. If you cannot do this, open ProperTree, open the config.plist, and then enable AppleXcpmCfgLock under Kernel -> Quirks. For more info, go to the [Haswell Page for OpenCore](https://dortania.github.io/OpenCore-Install-Guide/config.plist/haswell.html#intel-bios-settings).
-
-### Screen black after Mac OS boot
-
-This can happen for many reasons. The simpilest is that you used VGA instead of DP. DisplayPort is required for MacOS as no Mac has ever had VGA. Though their are a few hacky solutions to making VGA work with MacOS, this guide does not cover any of them. Other issues may have to do with the config.plist. The config.plist included with this guide is made for CPUs with Intel HD4400 and some other ones with HD4600. If some with HD4600 do not work (like the i5-4570 which came with some Optiplex 3020 MTs), it most likely due to this reason. To fix it, fire up ProperTree and remove all the keys inside DeviceProperties --> Add. This should allow it to boot. If it doesn't, you can find more info [here](https://github.com/varszegimarcell/Optiplex-3020-Hackintosh-OpenCore/issues/21) 
 
 ## Thank you
 
