@@ -137,42 +137,31 @@
 	<dict>
 		<key>Add</key>
 		<dict>
+			<key>PciRoot(0x0)/Pci(0x1B,0x0)</key>
+			<dict>
+				<key>layout-id</key>
+				<data>EQAAAA==</data>
+				<key>hda-gfx</key>
+				<string>onboard-1</string>
+			</dict>
 			<key>PciRoot(0x0)/Pci(0x2,0x0)</key>
 			<dict>
 				<key>AAPL,ig-platform-id</key>
 				<data>AwAiDQ==</data>
-				<key>device-id</key>
-				<data>EgQAAA==</data>
+				<key>disable-external-gpu</key>
+				<data>AQAAAA==</data>
 				<key>enable-hdmi-dividers-fix</key>
 				<data>AQAAAA==</data>
 				<key>enable-lspcon-support</key>
 				<data>AQAAAA==</data>
-				<key>framebuffer-con0-enable</key>
-				<data>AQAAAA==</data>
-				<key>framebuffer-con0-flags</key>
-				<data>hwAAAA==</data>
-				<key>framebuffer-con0-type</key>
-				<data>AAQAAA==</data>
-				<key>framebuffer-con1-enable</key>
-				<data>AQAAAA==</data>
-				<key>framebuffer-con1-flags</key>
-				<data>hwAAAA==</data>
-				<key>framebuffer-con1-type</key>
-				<data>AAQAAA==</data>
-				<key>framebuffer-con2-enable</key>
-				<data>AQAAAA==</data>
-				<key>framebuffer-con2-flags</key>
-				<data>hwAAAA==</data>
-				<key>framebuffer-con2-type</key>
-				<data>AAgAAA==</data>
 				<key>framebuffer-patch-enable</key>
 				<data>AQAAAA==</data>
 				<key>framebuffer-fbmem</key>
 				<data>AAAAAw==</data>
 				<key>framebuffer-stolenmem</key>
 				<data>AAAABA==</data>
-				<key>hda-gfx</key>
-				<string>onboard-1</string>
+				<key>framebuffer-unifiedmem</key>
+				<data>AAAAgA==</data>
 			</dict>
 		</dict>
 		<key>Delete</key>
@@ -771,7 +760,7 @@
 				<key>SystemAudioVolume</key>
 				<data>Rg==</data>
 				<key>boot-args</key>
-				<string>-v debug=0x100 keepsyms=1 alcid=17 -igfxmpc -igfxcdc -igfxdvmt </string>
+				<string>debug=0x100 keepsyms=1 -igfxmpc -igfxcdc -igfxdvmt </string>
 				<key>run-efi-updater</key>
 				<string>No</string>
 				<key>csr-active-config</key>
