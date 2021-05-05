@@ -162,6 +162,8 @@
 				<data>AAAABA==</data>
 				<key>framebuffer-unifiedmem</key>
 				<data>AAAAgA==</data>
+				<key>device-id</key>
+				<data>EgQAAA==</data>
 			</dict>
 		</dict>
 		<key>Delete</key>
