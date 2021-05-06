@@ -17,7 +17,7 @@ The Dell Optiplex 3020 is a common and cheap business computer, based on the 4th
 
 Since I'm an active Hackintosh user on this machine, I will update the EFI periodically here as anything new is available.
 
-Currently, this EFI is based on OpenCore 0.6.7, and includes the latest kexts as of 2021.03.09.
+Currently, this EFI is based on OpenCore 0.6.9, and includes the latest kexts as of 2021.05.06.
 
 
 ## About Big Sur
@@ -127,16 +127,7 @@ In this guide, I'm not covering how to add a dedicated GPU, as it would be diffe
 
     DeviceProperties -> PciRoot(0x0)/Pci(0x2,0x0)
 
-dictionary, in the config.plist file. Then, remove these entries:
-
-    disable-external-gpu
-    disable-hdmi-patches
-    framebuffer-patch-enabled
-    framebuffer-fbmem
-    framebuffer-stolenmem
-    hda-gfx
-
-After that, modify the following value like that:
+dictionary, in the config.plist file. Then, remove all entities, expect this variable, and make sure to modify it's value too:
 
     AAPL,ig-platform-id -> 04001204
 
@@ -259,6 +250,16 @@ We need an app called [EFI Agent](https://github.com/headkaze/EFI-Agent) to be a
 ## Congratuations! Now you have a fully functional MacOS install. 
 
 If iMessage says "contact with apple support" on a login attempt, call Apple spuuort, and tell them that your 5K iMac is unable to log into iMessage, and they'll fix it for you. :D It helps if you have a credit card added to your Apple ID, so they know you're not a fake person who is using a Hackintosh. For further iMessage troubleshooting, please visit [Tonymacx86's guide here](https://www.tonymacx86.com/threads/how-to-fix-imessage.110471/)
+
+## Troubleshooting
+
+### Black screen issue with certain DP->HDMI cables
+
+If you're using a converter cable, you may get a black screen on booting, and no video output. If you ecounter an issue like this remove the
+
+    DeviceProperties -> PciRoot(0x0)/Pci(0x2,0x0) -> device-id
+    
+entity. Keep in mind, that if you use a HD4400 equipped CPU, your iGPU will not work without this value. So you may have to upgrade to a HD4600, or avoid using a coverter cable.
 
 ## Thank you
 
