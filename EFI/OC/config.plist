@@ -588,6 +588,8 @@
 			<false/>
 			<key>PanicNoKextDump</key>
 			<true/>
+			<key>ProvideCurrentCpuInfo</key>
+			<false/>
 			<key>PowerTimeoutKernelPanic</key>
 			<true/>
 			<key>SetApfsTrimTimeout</key>
@@ -1006,7 +1008,7 @@
 			<key>ForceResolution</key>
 			<false/>
 			<key>GopPassThrough</key>
-			<false/>
+			<string>Disabled</string>
 			<key>IgnoreTextInGraphics</key>
 			<false/>
 			<key>ProvideConsoleGop</key>
