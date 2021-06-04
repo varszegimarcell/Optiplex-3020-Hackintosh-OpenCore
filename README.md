@@ -17,7 +17,7 @@ The Dell Optiplex 3020 is a common and cheap business computer, based on the 4th
 
 Since I'm an active Hackintosh user on this machine, I will update the EFI periodically here as anything new is available.
 
-Currently, this EFI is based on OpenCore 0.6.9 and includes the latest kexts as of 2021.05.06.
+Currently, this EFI is based on OpenCore 0.7.0 and includes the latest kexts as of 2021.06.07.
 
 
 ## About Big Sur
@@ -138,11 +138,11 @@ Finally, remove boot arguments from the
     NVRAM -> Add -> 7C436110-AB2A-4BBB-A880-FE41995C9F82 -> boot args 
 
 field, and remove all the arguments listed here:
-   
+
     -igfxmpc 
     -igfxcdc 
     -igfxdvmt
-    
+
 These are some Whatevergreen patches, that you do not need in iGPU encode only mode.
 
 ### Writing out the EFI to the install media
@@ -258,7 +258,7 @@ If iMessage says "contact with apple support" on a login attempt, call Apple sup
 If you're using a converter cable, you may get a black screen on booting, and no video output. If you encounter an issue like this remove the
 
     DeviceProperties -> PciRoot(0x0)/Pci(0x2,0x0) -> device-id
-    
+
 entity. Keep in mind, that if you use an HD4400 equipped CPU, your iGPU will not work without this value. So you may have to upgrade to an HD4600 or avoid using a converter cable.
 
 ## Thank you
