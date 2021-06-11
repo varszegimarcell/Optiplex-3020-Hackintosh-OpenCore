@@ -7,76 +7,76 @@
 Hackintoshing is a very fun and rewarding side project. The good thing about it is that you don't need very specific hardware to make one. When I got my hands on an OptiPlex 3020, I had no I idea what to do with it. But based on a suggestion of my roommate, I've decided to turn it into a Hackintosh. As I found out, it is a fully capable Hackintosh candidate, with all functions working. 
 
 ### About this repository
+
 This guide is made to explain the proccess of turning your OptiPlex 3020 into a Hackintosh. The guide is formatted in a step-by-step manner. Important text is made **bold**. *Italicized text* identifies that the text is optional or not important. During the guide, I will talk about the different hardware configurations and the different steps required for each of them. I will also give suggestions on what kind of hardware is recommended.
 
 Currently this EFI is based on **OpenCore 0.7.0** and supports **macOS Big Sur**.
 
 ### About macOS Catalina and the future
-This repository first made to support macOS Catalina. When Big Sur came out of public beta, this repository was changed to support it. Now the repo only supports Big Sur. It may still work with Catalina, but I cannot guarantee it.
 
-*In WWDC 2021, Apple announced macOS 12 Monterey. I do not have any plans of updating this guide to support it until it comes out of public beta. Any issues regarding macOS 12 will be closed.*
+This repository first made to support macOS Catalina. When Big Sur came out of public beta, this repository was updated to support it. Now the repo only supports Big Sur. It may still work with Catalina, but I cannot guarantee it.
+
+*In WWDC 2021, Apple announced macOS 12 Monterey. I do not have any plans of updating this guide to support it until it comes out of public beta. Any issues regarding macOS 12 will be closed or ignored for the time being.*
 
 ## Prerequisites
 
 ### Requirements
 
-These things are required for this project to succeed:
+These things are **required** for this project to succeed:
 
  - A Dell Optiplex 3020 of any form factor:
    - SFF
    - MT
    - M
-   - To check which one you have, check out [this link](https://www.dell.com/support/kbdoc/en-us/000129367/optiplex-3020-visual-guide-to-your-computer).
+   - To see which one you have, check out [this link](https://www.dell.com/support/kbdoc/en-us/000129367/optiplex-3020-visual-guide-to-your-computer).
 -   Access to a working Mac/Linux/Windows machine.
 - A 16GB pen drive
-### Optional hardware upgrades
+- Keyboard/Mouse to interact with your Hackintosh computer.
+- Displayport cable, since the VGA port will not work.
+- 1-2 hours of free time, and patience.
 
-You should consider some hardware upgrades to this machine, to archive the best results possible. In this section, we'll be going through all the possible upgrades you might want to consider for the machine. If you're not interested in hardware upgrades, you can skip this section, but I strongly recommend using a CPU with Intel HD4600 at least.
+### Recommended Hardware Upgrades
 
 #### CPU
 
-By default, my machine came with an Intel i3-4150 CPU, which is fine, but not ideal for a Hackintosh machine. This may vary between machines, so check your configuration.
+**Any LGA1150 Haswell CPU, even ones which came with the machine will work**.
+I recommend buying at least a Core i5 or i7. The reason for this is because of the graphics. 4th generation intel chips come with two graphics versions, Intel HD4400 and Intel HD4600. Most Core i3s and few Core i5s come with HD4400, which is fine, but not ideal. With the latest tweaks, it is possible to run macOS on these chips. But sadly, it is far from bug free. Weird graphical glitches happen all the time, with programs like GarageBand becoming very hard to use.
+ **Keep in mind, the cooling solution included in the machine is rated to 65W in case of the 3020 MT and SFF, and 35W in case of the 3020M. Please check the TDP rating of your new CPU. Also, keep in mind the capabilities of the power supply.**
 
-The problem with the i3-4150 CPU is that it has Intel HD4400 graphics, which will work, but it will have some small issues, which I explain in this guide later. No Mac computer was shipped with this iGPU, so it is not surprising that it has issues. **Consider upgrading to a CPU, that has Intel HD4600 graphics instead**, LGA1150 Haswell CPUs are pretty cheap on the used market. Ideally, **I would install an i5-4590S,** since we're going to fake our machine like an iMac 15,1, and this machine was shipped with this exact CPU. **Keep in mind, the cooling solution included in the machine is rated to 65W in case of the 3020 MT and SFF, and 35W in case of the 3020M. Please check the TDP rating of your new CPU. Also, keep in mind the capabilities of the power supply.**
+*I went with the i5-4590S as it was the CPU which came with the iMac15,1 and that is the iMac we are going to fake for our hackintosh.*
+
+#### GPU
+
+Any dedicated GPU that is supported will work. You can also just stick with the integrated graphics which comes with the CPU. If you want more information on which cards work and which don't, check out [this link](https://dortania.github.io/OpenCore-Install-Guide/macos-limits.html#gpu-support).
 
 #### RAM
 
-By default, my machine came with 4 GB of memory, which is fine, but far from perfect. Although Mac will run and work, you will experience some applications closing in the background, and some browser tabs will reload when you switching between them. **I recommend using at least 8 GB RAM for optimal multi-tasking experience,** and using 16 GB will hurt nobody. :) DDR3 1600MHz RAM sticks are pretty cheap too these days. 
-The SFF computer I use has 2 RAM slots, one was populated with a 4 GB Hynix HMT451U6AFR8C-PB 1600MHz stick. 
+The amount of RAM in your system has a big impact on performance and overall smoothness of the system. **The minimum is 4GB, but I recommend at least 8GB of RAM for the best experience.** You can also put up to 16GB of RAM for the SFF and M models, and 32GB for the MT model.
 
-#### SSD
+#### Storage
 
-**I highly recommend installing a SATA 3 SSD, to make things more speedy.** My computer came with a Seagate SSHD, with 500GB of capacity. Since optical drives are pretty much dead at this point, I've decided to keep disconnected mine and install an SSD instead. On the drive tray, you have space for two 2,5" drives, so no need to remove the ODD. I've installed the main system on the SSD, and I use the SSHD for backups. I would recommend using Samsung SSDs.
+To run macOS, **I would recommend at least 100GB of storage space**, but if you are going to be installing programs or storing big files on it, I would say to keep 250GB or 500GB. It doesn't really matter if you install macOS on an SSD or HDD, but **programs are considerably faster and smoother with an SSD**.
 
 #### Networking card
 
-The onboard Gigabit Ethernet is working perfectly, so no need to install an ethernet card, unless you want to use some fancy 10Gb cards. **I would recommend installing a Wifi+Bluetooth card, with the Broadcomm BCM94360CD chipset.** Although it is not required for a functioning system, it is needed to have Continuity, AirDrop, Handoff, etc. The best part is, that no workarounds are needed if you use this chipset, it's plug'n'play. **They're pretty inexpensive on eBay, but *always read the description,* because some Chinese dudes want to rip you off, as they will send you a card with a compatible, but not the exact same, and slower chipset.** Compatible chipsets will not work out-of-the-box, so they will need some "kext magic" to be able to make them work. I see no reason to get a random card for a slightly cheaper price, and it will cause more headaches for sure. **If the description contains text like *"maximum chipset"*, do not buy from that seller.** I recommend this exact chipset, because it was included in the iMac15,1, and has WIFI+BT on the same PCIe card. Some other chipsets may work too, for more information, please read [OpenCore's Wifi Buyers guide.](https://dortania.github.io/Wireless-Buyers-Guide/)
+The onboard Gigabit Ethernet is working perfectly, so no need to install an ethernet card, unless you want to use some fancy 10Gb cards.  **I would recommend installing a Wifi+Bluetooth card, with the Broadcomm BCM94360CD chipset.**  Although it is not required for a functioning system, it is needed to have Continuity, AirDrop, Handoff, etc. The best part is, that no workarounds are needed if you use this chipset, it's plug'n'play.  They're pretty inexpensive on eBay, but **always read the description,  because some Chinese dudes want to rip you off, as they will send you a card with a compatible, but not the exact same, and slower chipset.**  Compatible chipsets will not work out-of-the-box, so they will need some "kext magic" to be able to make them work. I see no reason to get a random card for a slightly cheaper price, and it will cause more headaches for sure.  **If the description contains text like  "maximum chipset", do not buy from that seller.**  I recommend this exact chipset, because it was included in the iMac15,1, and has WIFI+BT on the same PCIe card. Some other chipsets may work too, for more information, please read  [OpenCore's Wifi Buyers guide.](https://dortania.github.io/Wireless-Buyers-Guide/)
 
-I've installed a Fenvi T919 Wifi+BT card. macOS recognizes it as an AirportExtreme card and works perfectly. Keep in mind, you may need to log out and log back into your Apple ID because continuity services and handoff will not work. Of course, if you install the card before you install macOS, no such problem will exist. If you install the card later, this should fix this issue. I had to do this on my iPhone too, but it was my fault, as I've removed the card that I made work before, and reinstalled macOS later. 
-
-#### Dedicated GPU
-You can freely use any dedicated GPU that supports by MacOS. Keep in mind, this machine's PSU doesn't have any PCIe power headers, so use a GPU that will work with power coming from just the PCIe socket. (Under 75 watts.) ~~Upgrading PSU may be an option, but getting one for the SFF and M form factors are pretty difficult.~~ I'm using the iGPU since don't need any graphics-intensive applications. It will work just fine for everything, other than video rendering/CAD/3D modeling/gaming.
-
-> Note on the PSU upgrade: as the computer uses ATX12VO standard PSU, it will be extremely difficult to find a proper replacement for it, so I cannot recommend upgrading the PSU. 
+I've installed a Fenvi T919 Wifi+BT card. macOS recognizes it as an AirportExtreme card and works perfectly. **Keep in mind, you may need to log out and log back into your Apple ID because continuity services and handoff will not work.** Of course, if you install the card before you install macOS, no such problem will exist. If you install the card later, this should fix this issue. I had to do this on my iPhone too, but it was my fault, as I've removed the card that I made work before, and reinstalled macOS later.
 
 ## Preparation
 
-### Update your BIOS
+### *Update your BIOS*
 
-First of all, install the latest BIOS on your 3020 machine. For more instructions, please check [Dell's website.](https://www.dell.com/support/home/hu-hu/drivers/driversdetails?driverid=ptjjd&oscode=w764&productcode=optiplex-3020-desktop)
+This step is not required but recommended. If your computer is already running Windows, it is as easy as downloading the update executable from [Dell's website](https://www.dell.com/support/home/en-us/drivers/driversdetails?driverid=ptjjd) and double-clicking it. If you don't have any OS installed, download [Rufus](https://rufus.ie/) on another computer. 
+ After that, boot from it and select the first option by hitting ENTER. Then, after some scrolling text, you will see a prompt open.
 
-I made a bootable FreeDOS USB and copied over the exe file that Dell provided with the update. Run this executable, and follow the instructions. Keep in mind, you need to enable legacy boot for FreeDOS, which we'll need to turn off later.
+![selection](https://github.com/varszegimarcell/Optiplex-3020-Hackintosh-OpenCore/blob/guide-reformatting/Images/Selection.png)
 
-### Creating the install media
+Now type "dir" (without the quotes) into the shell and hit ENTER. You should see a list of files and folders, one of them being your update file.
 
-You have to make an installation media to install macOS, and later you have to make it bootable by PCs too. If you're using macOS, you can head to the App Store to download the installer directly from Apple.
+![dir command example output](https://github.com/varszegimarcell/Optiplex-3020-Hackintosh-OpenCore/blob/guide-reformatting/Images/DIR.jpg)
 
-#### Creating Big Sur (11) install media on Windows
-
-Since gibMacOS is broken with Big Sur, making an install media on Windows is now more difficult, than it was on Catalina. OpenCore has a nicely detailed guide about the topic, check it out on [this link.](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/winblows-install.html#downloading-macos) Keep in mind, this method creates a web installer only, so make sure you have an active internet connection during the install. 
-
-For Mac and Linux, check [this link.](https://dortania.github.io/OpenCore-Install-Guide/extras/big-sur/#installation)
-
+Just type the name of your file (make sure to end it with .exe) and run the command by pressing enter. Then, just follow the steps. It may restart for you, but if it didn't, just use the power button on the computer to shut it down, and try booting the usb again to see if the update worked. 
 ### Configuring the EFI
 
 First of all, download the EFI folder I've included in this repo, so we can make some adjustments to it. You will find the latest files under the releases, or just simply download the repo as it is.
