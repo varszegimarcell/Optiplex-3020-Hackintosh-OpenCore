@@ -67,12 +67,11 @@ I've installed a Fenvi T919 Wifi+BT card. macOS recognizes it as an AirportExtre
 
 ### *Update your BIOS*
 
-This step is not required but recommended. If your computer is already running Windows, it is as easy as downloading the update executable from [Dell's website](https://www.dell.com/support/home/en-us/drivers/driversdetails?driverid=ptjjd) and double-clicking it. If you don't have any OS installed, download [Rufus](https://rufus.ie/) on another computer. 
- After that, boot from it and select the first option by hitting ENTER. Then, after some scrolling text, you will see a prompt open.
+This step is not required but recommended. If your computer is already running Windows, it is as easy as downloading the update executable from [Dell's website](https://www.dell.com/support/home/en-us/drivers/driversdetails?driverid=ptjjd) and double-clicking it. If you don't have any OS installed, download [Rufus](https://rufus.ie/) on another computer. Insert and select your USB drive. In the Boot selection drop-down, select FreeDOS. Then click start. After that, boot from it and select the first option by hitting ENTER.
 
 ![selection](https://github.com/varszegimarcell/Optiplex-3020-Hackintosh-OpenCore/blob/guide-reformatting/Images/Selection.png)
 
-Now type "dir" (without the quotes) into the shell and hit ENTER. You should see a list of files and folders, one of them being your update file.
+Then, after some scrolling text, you will see a prompt open. Now type "dir" (without the quotes) into the shell and hit ENTER. You should see a list of files and folders, one of them being your update file.
 
 ![dir command example output](https://github.com/varszegimarcell/Optiplex-3020-Hackintosh-OpenCore/blob/guide-reformatting/Images/DIR.jpg)
 
