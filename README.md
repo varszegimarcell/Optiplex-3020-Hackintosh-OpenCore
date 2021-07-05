@@ -10,7 +10,7 @@ Hackintoshing is a very fun and rewarding side project. The good thing about it 
 
 This guide is made to explain the proccess of turning your OptiPlex 3020 into a Hackintosh. The guide is formatted in a step-by-step manner. Important text is made **bold**. *Italicized text* identifies that the text is optional or not important. During the guide, I will talk about the different hardware configurations and the different steps required for each of them. I will also give suggestions on what kind of hardware is recommended.
 
-Currently this EFI is based on **OpenCore 0.7.0** and supports **macOS Big Sur**.
+Currently this EFI is based on **OpenCore 0.7.1** and supports **macOS Big Sur**.
 
 ### About macOS Catalina and the future
 
