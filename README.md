@@ -17,7 +17,7 @@ The Dell Optiplex 3020 is a common and cheap business computer, based on the 4th
 
 Since I'm an active Hackintosh user on this machine, I will update the EFI periodically here as anything new is available.
 
-Currently, this EFI is based on OpenCore 0.7.1 and includes the latest kexts as of 2021.07.05.
+Currently, this EFI is based on OpenCore 0.7.2 and includes the latest kexts as of 2021.08.03.
 
 
 ## About Big Sur
@@ -95,6 +95,10 @@ For Mac and Linux, check [this link.](https://dortania.github.io/OpenCore-Instal
 First of all, download the EFI folder I've included in this repo, so we can make some adjustments to it. You will find the latest files under the releases, or just simply download the repo as it is.
 
 In this step, we will tweak our bootloader, generate our fake Mac serials, then write it out on the install media's EFI folder, so PCs will be able to boot from it. Although generating serials are possible post-install, I would not recommend it, doing these tasks now can save a lot of pain and troubleshooting later, especially when you trying to make iMessage work. 
+
+#### USB Map
+
+In the _USB Maps_ folder in this repo, you will find two folders. One is labled _USBMap-SFF.kext_, and the other is labled _USBMap-MT.kext_. The name are pretty self-explanitory. Download the one which represents the model of your computer, and rename to just _USBMap.kext_. Then, copy it to the EFI/OC/Kexts folder on your USB drive. 
 
 #### GenSMBIOS values
 
