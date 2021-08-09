@@ -10,7 +10,7 @@ Hackintoshing is a very fun and rewarding side project. The good thing about it 
 
 This guide is made to explain the proccess of turning your OptiPlex 3020 into a Hackintosh. The guide is formatted in a step-by-step manner. Important text is made **bold**. *Italicized text* identifies that the text is optional or not important. During the guide, I will talk about the different hardware configurations and the different steps required for each of them. I will also give suggestions on what kind of hardware is recommended.
 
-Currently this EFI is based on **OpenCore 0.7.1** and supports **macOS Big Sur**.
+Currently this EFI is based on **OpenCore 0.7.2** and supports **macOS Big Sur**.
 
 ### About macOS Catalina and the future
 
@@ -78,9 +78,15 @@ Then, after some scrolling text, you will see a prompt open. Now type "dir" (wit
 Just type the name of your file (make sure to end it with .exe) and run the command by pressing enter. Then, just follow the steps. It may restart for you, but if it didn't, just use the power button on the computer to shut it down, and try booting the usb again to see if the update worked. 
 ### Configuring the EFI
 
-First of all, download the EFI folder I've included in this repo, so we can make some adjustments to it. You will find the latest files under the releases, or just simply download the repo as it is.
+First, download the latest EFI files from the releases section. You could technically download the EFI as-it-is, but it often contains changes which haven't been throughly tested. 
 
-In this step, we will tweak our bootloader, generate our fake Mac serials, then write it out on the install media's EFI folder, so PCs will be able to boot from it. Although generating serials are possible post-install, I would not recommend it, doing these tasks now can save a lot of pain and troubleshooting later, especially when you trying to make iMessage work. 
+#### USB Map
+
+Currently, two USB Maps have been created. They are for MT and SFF form factors. If you have a M form factor, you are going to have to use [USBInjectAll](https://bitbucket.org/RehabMan/os-x-usb-inject-all/downloads/) for now.
+
+*I am looking for a person who has the M form factor to create a USBMap for the guide. If you are interested, please mention me, @Xtendera, in the Disscustions page.*
+
+In the dowloaded EFI, go to the USB maps section. From there, copy over the relevent one to the `EFI/OC/Kexts` directory. Then, rename the map to just `USBMap.kext`.
 
 #### GenSMBIOS values
 
@@ -254,3 +260,4 @@ Special thanks to [zearp](https://github.com/zearp), without his guide, mine wou
 Special thanks to [jayphizzle](https://github.com/jayphizzle), his donation made me able to buy a new CPU after my old one died.
 
 Special thanks to [u/valentinivan](https://www.reddit.com/user/valentinivan) for his graphics patch recommendations, as well as some general audio configuration advice.
+
