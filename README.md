@@ -88,6 +88,10 @@ Currently, two USB Maps have been created. They are for MT and SFF form factors.
 
 In the dowloaded EFI, go to the USB maps section. From there, copy over the relevent one to the `EFI/OC/Kexts` directory. Then, rename the map to just `USBMap.kext`.
 
+#### USB Map
+
+In the _USB Maps_ folder in this repo, you will find two folders. One is labled _USBMap-SFF.kext_, and the other is labled _USBMap-MT.kext_. The name are pretty self-explanitory. Download the one which represents the model of your computer, and rename to just _USBMap.kext_. Then, copy it to the EFI/OC/Kexts folder on your USB drive. 
+
 #### GenSMBIOS values
 
 We need a script, called [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), to be able to create fake serial numbers, UUID, and MLB numbers. **This step is essential to have a working iMessage, so do not skip it. It is highly recommended to do this now, rather than post-install.** This script can run on Windows too. 
