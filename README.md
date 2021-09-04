@@ -243,6 +243,85 @@ After the setup, your computer will reboot again, and you should see the welcome
 
 We need an app called [EFI Agent](https://github.com/headkaze/EFI-Agent) to be able to mount the internal drive's EFI partition. Mount the internal drive's EFI partition, copy the contents of the USB drive's EFI partition into there, which is automatically mounted. Unmount your EFI and your USB drive and after that reboot. Your machine should be able to boot by itself now. 
 
+## Advanced
+
+This section is for people wanting to go beyond what works. Nothing listed below is required, but I do recommend you go through the topics to see if any interests you.
+
+### HiDPI
+
+*This section was made possible by @Kinetik.*
+
+On a real iMac, the output of the display is meant to be 5K. Apple puts extra effort in to make sure that the OS looks as sharp as possible. They call this Retina. Retina and HiDPI are the same thing, they allow the screen to look a lot sharper. So even if you have a 2K display without HiDPI, and a 1080p one with HiDPI, the 1080p one will look sharper than the 2k one. Now since most of us are not using 5k monitors, HiDPI is not enabled by default. The built-in settings does not let us enable HiDPI to the fullest resolution. Like even if you have a 2k monitor, it will only let you enable HiDPI to 1080p. 
+
+To be able to set our HiDPI resolution to what we want, we need an app called [RDM](https://github.com/usr-sse2/RDM). It is pretty easy to use. First, go to the releases page of the app and dowload the latest version. Run the app, and then you'll see that a new menu has appeared.
+
+Click it, and make sure the refresh rate is right for your moniter. Then, open the reselution drop down, and pick the last option (Edit...). In the menu, click the tiny add (+) button in the left corner. Then, change the width and hieght of the newly added block to your moniter resolution. Then, click the check boxes for Retina, HiDPI, and Unknown1. Next, click save. **You need to restart your computer to see the changes.** When you restart and open RDM again, you will see in the reselution menu that there is a lightning mark on some of the resolutions. Click the one for your moniter and HiDPI is enabled! If after restarting you don't see any lightning marks, your DisplayPort cable does not support it.
+
+### UEFI Secure Boot
+
+UEFI Secure Boot is a very advanced topic. Even I don't know everything. If you open an issue, we will try to help you, but we might not be able to. You need to understand a lot of how the linux terminal works and have to be comfertable working with the BIOS. I am not going to explain what Secure Boot is or how it works as it is done in a lot of articles. This will just show how to make Secure Boot work with OpenCore. This guide is made to be used on a OptiPlex 3020, but it should work on any computer, with a few modifications. Why am I making this? Well, I haven't seen any guide showing you this. I found one, but it involved installing the GRUB bootloader on top of OpenCore. Yeah. This one is not going to involve anything like that.
+
+**Before starting this guide, go into the bios, and in Secure Boot -> Expert Key Managment, make sure that "Enable Custom Mode" is unticked. Also make sure that Secure Boot is off.**
+
+1) Enable [Apple Secure Boot](https://dortania.github.io/OpenCore-Post-Install/universal/security/applesecureboot.html). 
+2) What you need to do is, instead of modifing the EFI on your installation, you need to create a usb with the EFI of your current install. This way, if anything goes wrong, you can at least get into macOS.
+3) Now, for the next few steps, you will need linux. It also has to be running on your OptiPlex. What I did was I took 2 USBs, flashed the Linux Mint installer on one. Then, I plugged out my OS drive (the one with macOS installed and any other ones which has data). Next, I booted the installer and installed Linux Mint onto the other USB. This way I have a completly portable Linux Mint. I do reccomend Mint or any other Ubuntu-based distros as some commands in this section are specific to it.
+4) Once in the linux enviornment, open up a terminal and run the following commands to update and install the tool we need.
+```
+sudo apt update
+sudo apt upgrade -y
+sudo apt install efitools
+```
+5) In the terminal, go to your documents folder and create a new directory (you can name it whatever you want). change into the folder, and run the commands below (You can change the CN value in the openssl commands to your choosing):
+
+*You can copy all the commands at once and paste them into the terminal.*
+
+```
+efi-readvar -v PK -o old_PK.esl
+efi-readvar -v KEK -o old_KEK.esl
+efi-readvar -v db -o old_db.esl
+efi-readvar -v dbx -o old_dbx.esl
+openssl req -new -x509 -newkey rsa:2048 -subj "/CN=NAME OF platform key/" -keyout PK.key -out PK.crt -days 3650 -nodes -sha256
+openssl req -new -x509 -newkey rsa:2048 -subj "/CN=NAME OF key-exchange-key/" -keyout KEK.key -out KEK.crt -days 3650 -nodes -sha256
+openssl req -new -x509 -newkey rsa:2048 -subj "/CN=NAME OF kernel-signing key/" -keyout db.key -out db.crt -days 3650 -nodes -sha256
+cert-to-efi-sig-list -g "$(uuidgen)" PK.crt PK.esl
+sign-efi-sig-list -k PK.key -c PK.crt PK PK.esl PK.auth
+cert-to-efi-sig-list -g "$(uuidgen)" KEK.crt KEK.esl
+sign-efi-sig-list -a -k PK.key -c PK.crt KEK KEK.esl KEK.auth
+cert-to-efi-sig-list -g "$(uuidgen)" db.crt db.esl
+sign-efi-sig-list -a -k KEK.key -c KEK.crt db db.esl db.auth
+sign-efi-sig-list -k KEK.key -c KEK.crt dbx old_dbx.esl old_dbx.auth
+openssl x509 -outform DER -in PK.crt -out PK.cer
+openssl x509 -outform DER -in KEK.crt -out KEK.cer
+openssl x509 -outform DER -in db.crt -out db.cer
+cat old_KEK.esl KEK.esl > compound_KEK.esl
+cat old_db.esl db.esl > compound_db.esl
+sign-efi-sig-list -k PK.key -c PK.crt KEK compound_KEK.esl compound_KEK.auth
+sign-efi-sig-list -k KEK.key -c KEK.crt db compound_db.esl compound_db.auth
+```
+
+6) Now, you need to copy *old_dbx.auth*, *compound_db.auth*, *compound_KEK.auth*, *PK.auth* to a fat USB. our OpenCore installer we created in step 2 is perfect for that. Create a folder in the root directory of the USB called "Keys". Copy the files menchioned above to the folder. Then, restart into the BIOS. 
+
+7) Once in the bios, navigate to "Secure Boot -> Expert Key Management". Then, tick "Enable Custom Mode". Next, click the "Delete All Keys" button.
+
+8) Select the radio button for dbx, and click "Replace From File". This should open up a file selector dialog. Go through the drives until you find the one with the "Keys" folder. Go into it, and select the *old_dbx.auth* file. Then click OK.
+
+9) Next, select the radio button for db, click "Replace From File", and select the *compund_db.auth* file. After clicking OK, select the KEK radio button, hit "Replace From File", and select the *compund_KEK.auth* file. Lastly, select the PK radio button, click "Replace From File", and select *PK.auth*.
+
+**NOTE: Do not enable Secure Boot yet.**
+
+10) Boot back into linux. Go to the folder you created in the documents directory. Copy *db.key* and *db.crt* to the */OC/Tools* folder on your OpenCore USB. Then, open a terminal windows inside the Tools folder.  Run the following command to sign the OpenShell binary:
+`sbsign --key db.key --cert db.crt --output OpenShell.efi OpenShell.efi`
+And sign any other tools you have (except for ones which provide administrative access to the computer like *modGRUBShell.efi*).
+
+11) Do the same for everything in the Drivers folder. **DO NOT** sign BOOTx64.efi and OpenCore.efi.
+
+12) [Vault your configuration](https://dortania.github.io/OpenCore-Post-Install/universal/security/vault.html).
+
+13) Sign BOOTx64.efi and OpenCore.efi.
+
+14) Enable Secure Boot. :smile:
+
 ## Congratulations! Now you have a fully functional MacOS install. 
 
 If iMessage says "contact with apple support" on a login attempt, call Apple support, and tell them that your 5K iMac is unable to log into iMessage, and they'll fix it for you. :D It helps if you have a credit card added to your Apple ID, so they know you're not a fake person who is using a Hackintosh. For further iMessage troubleshooting, please visit [Tonymacx86's guide here](https://www.tonymacx86.com/threads/how-to-fix-imessage.110471/)
