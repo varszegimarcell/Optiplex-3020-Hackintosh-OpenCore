@@ -98,7 +98,7 @@ In this step, we will tweak our bootloader, generate our fake Mac serials, then 
 
 #### USB Map
 
-In the _USB Maps_ folder in this repo, you will find two folders. One is labled _USBMap-SFF.kext_, and the other is labled _USBMap-MT.kext_. The name are pretty self-explanitory. Download the one which represents the model of your computer, and rename to just _USBMap.kext_. Then, copy it to the EFI/OC/Kexts folder on your USB drive. 
+In the _USB Maps_ folder in this repo, you will find two folders. The names are pretty self-explanitory. Download the one which represents the model of your computer, and rename to just _USBMap.kext_. Then, copy it to the EFI/OC/Kexts folder on your USB drive. 
 
 #### GenSMBIOS values
 
