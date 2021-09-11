@@ -82,15 +82,8 @@ First, download the latest EFI files from the releases section. You could techni
 
 #### USB Map
 
-Currently, two USB Maps have been created. They are for MT and SFF form factors. If you have a M form factor, you are going to have to use [USBInjectAll](https://bitbucket.org/RehabMan/os-x-usb-inject-all/downloads/) for now.
-
-*I am looking for a person who has the M form factor to create a USBMap for the guide. If you are interested, please mention me, @Xtendera, in the Disscustions page.*
-
-In the dowloaded EFI, go to the USB maps section. From there, copy over the relevent one to the `EFI/OC/Kexts` directory. Then, rename the map to just `USBMap.kext`.
-
-#### USB Map
-
-In the _USB Maps_ folder in this repo, you will find two folders. One is labled _USBMap-SFF.kext_, and the other is labled _USBMap-MT.kext_. The name are pretty self-explanitory. Download the one which represents the model of your computer, and rename to just _USBMap.kext_. Then, copy it to the EFI/OC/Kexts folder on your USB drive. 
+In the _USB Maps_ folder in this repo, you will find two folders. The names are pretty self-explanitory. Download the one which represents the model of your computer, and rename to just _USBMap.kext_. 
+Then, copy it to the EFI/OC/Kexts folder on your USB drive. 
 
 #### GenSMBIOS values
 
