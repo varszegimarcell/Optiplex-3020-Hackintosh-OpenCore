@@ -1,3 +1,7 @@
+
+> :warning: Some of you are asking for macOS 12 Monterey support. I have gotton it to work on my computer, but I do not have the time or motivation to add info about it. 
+> What I will say though is I got it to work using the iMac16,2 SMBIOS. I will keep updating OC versions though. Thank you.
+
 # Dell Optiplex 3020 Hackintosh OpenCore
 
 This repository contains a guide on how to install macOS on the Dell Optiplex 3020, with the necessary files, using OpenCore bootloader.
@@ -17,7 +21,7 @@ The Dell Optiplex 3020 is a common and cheap business computer, based on the 4th
 
 Since I'm an active Hackintosh user on this machine, I will update the EFI periodically here as anything new is available.
 
-Currently, this EFI is based on OpenCore 0.7.4 and supports macOS Big Sur (Monterey support coming soon!).
+Currently, this EFI is based on OpenCore 0.7.4 and supports macOS Big Sur.
 
 
 ## About Big Sur
